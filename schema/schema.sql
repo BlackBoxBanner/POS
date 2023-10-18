@@ -1,4 +1,4 @@
-create table public.branches (
+create table if not exists public.branches (
   id uuid not null default gen_random_uuid (),
   branch_name character varying not null,
   created_at timestamp with time zone not null default now(),
@@ -7,7 +7,7 @@ create table public.branches (
   constraint addresses_branch_name_key unique (branch_name)
 ) tablespace pg_default;
 
-create table public.tables (
+create table if not exists public.tables (
   id uuid not null default gen_random_uuid (),
   table_number smallint not null,
   seat smallint not null,
@@ -15,7 +15,7 @@ create table public.tables (
   constraint tables_pkey primary key (id)
 ) tablespace pg_default;
 
-create table public.employees (
+create table if not exists public.employees (
   id uuid not null default gen_random_uuid (),
   email character varying not null,
   name character varying not null,
@@ -24,7 +24,7 @@ create table public.employees (
   constraint employees_email_key unique (email)
 ) tablespace pg_default;
 
-create table public.dish_types (
+create table if not exists public.dish_types (
   id uuid not null default gen_random_uuid (),
   created_at timestamp with time zone not null default now(),
   name character varying not null,
@@ -32,7 +32,7 @@ create table public.dish_types (
   constraint dish_types_name_key unique (name)
 ) tablespace pg_default;
 
-create table public.customers (
+create table if not exists public.customers (
   id uuid not null default gen_random_uuid (),
   created_at timestamp with time zone not null default now(),
   table_id uuid not null,
@@ -46,7 +46,7 @@ create table public.customers (
   constraint customers_branch_id_fkey foreign key (branch_id) references branches (id) on update cascade
 ) tablespace pg_default;
 
-create table public.employees_branches (
+create table if not exists public.employees_branches (
   branch_id uuid not null,
   employee_id uuid not null,
   constraint employees_branches_pkey primary key (branch_id, employee_id),
@@ -54,7 +54,7 @@ create table public.employees_branches (
   constraint employees_branches_employee_id_fkey foreign key (employee_id) references employees (id) on delete cascade
 ) tablespace pg_default;
 
-create table public.menus (
+create table if not exists public.menus (
   id uuid not null default gen_random_uuid (),
   created_at timestamp with time zone not null default now(),
   name character varying not null,
@@ -68,7 +68,7 @@ create table public.menus (
     null
 ) tablespace pg_default;
 
-create table public.orders (
+create table if not exists public.orders (
   id uuid not null default gen_random_uuid (),
   status boolean not null default true,
   table_id uuid not null,
@@ -77,7 +77,7 @@ create table public.orders (
   constraint orders_table_id_fkey foreign key (table_id) references tables (id) on update cascade on delete cascade
 ) tablespace pg_default;
 
-create table public.menus_orders (
+create table if not exists public.menus_orders (
   menu_id uuid not null,
   order_id uuid not null,
   constraint menus_orders_pkey primary key (menu_id, order_id),

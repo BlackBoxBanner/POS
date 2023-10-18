@@ -1,5 +1,5 @@
 import type { Database } from '$lib/types';
-import { supabase } from "$lib/supabase";
+import { supabase, supabaseAdmin } from "$lib/supabase";
 import type { Session, User } from '@supabase/supabase-js';
 
 export type SignInProps = {
@@ -62,7 +62,7 @@ export const signUpForce: SignUp = async ({ email, name, password, repetePasswor
   if (!repetePassword || repetePassword === undefined) throw new Error("No repete password provided")
   if (password !== repetePassword) throw new Error("Password not matched")
 
-  const { data, error: registerError } = await supabase.auth.admin.createUser({
+  const { data, error: registerError } = await supabaseAdmin.auth.admin.createUser({
     email,
     password,
     email_confirm: true,
@@ -100,7 +100,7 @@ export type DeleteUserProps = {
 type DeleteUser = (props: DeleteUserProps) => Promise<void>
 export const deleteUser: DeleteUser = async ({ id }) => {
   if (!id || id === undefined) throw new Error("No id provided.")
-  const { error: authError } = await supabase.auth.admin.deleteUser(id)
+  const { error: authError } = await supabaseAdmin.auth.admin.deleteUser(id)
   if (authError) throw new Error(authError.message)
   const { error: databaseError } = await supabase
     .from('employees')
