@@ -1,6 +1,5 @@
 import { supabase } from '$lib/supabase';
 import type { Inserts, Tables, Updates } from '$lib/types/schema';
-import { type } from 'os';
 
 export type CreateBranchProps = Inserts<'branches'>;
 type CreateBranch = (props: CreateBranchProps) => Promise<Tables<'branches'>>;
@@ -48,12 +47,12 @@ export const deleteBranch: DeleteBranch = async ({ id }) => {
 };
 
 export type UpdateBranchProps = Updates<'branches'> & {
-	id: string
+	id: string;
 };
 type UpdateBranch = (props: UpdateBranchProps) => Promise<Tables<'branches'>>;
 export const updateBranch: UpdateBranch = async ({ id, ...props }) => {
-	if (!id) throw new Error("No id provided")
-	const { data, error } = await supabase.from('branches').update(props).eq("id", id).select();
+	if (!id) throw new Error('No id provided');
+	const { data, error } = await supabase.from('branches').update(props).eq('id', id).select();
 	if (error) throw new Error(error.message);
 	return data[0];
 };

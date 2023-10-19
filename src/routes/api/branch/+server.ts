@@ -16,7 +16,7 @@ export const GET: RequestHandler = async ({ url }) => {
 
 	try {
 		// return new Response(JSON.stringify(await getBranch({ id })));
-		return Response.json(await getBranch({ id }))
+		return Response.json(await getBranch({ id }));
 	} catch (error: unknown) {
 		if (error instanceof Error) return Response.json(error.message, { status: 400 });
 		return Response.json(error, { status: 400 });
@@ -26,7 +26,7 @@ export const GET: RequestHandler = async ({ url }) => {
 export const POST: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as CreateBranchProps;
 	try {
-		return Response.json(await createBranch(body))
+		return Response.json(await createBranch(body));
 	} catch (error: unknown) {
 		if (error instanceof Error) return Response.json(error.message, { status: 400 });
 		return Response.json(error, { status: 400 });
@@ -36,7 +36,7 @@ export const POST: RequestHandler = async ({ request }) => {
 export const PATCH: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as UpdateBranchProps;
 	try {
-		return Response.json(await updateBranch(body))
+		return Response.json(await updateBranch(body));
 	} catch (error: unknown) {
 		if (error instanceof Error) return Response.json(error.message, { status: 400 });
 		return Response.json(error, { status: 400 });
@@ -46,7 +46,7 @@ export const PATCH: RequestHandler = async ({ request }) => {
 export const DELETE: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as DeleteBranchProps;
 	try {
-		return Response.json(await deleteBranch(body))
+		return Response.json(await deleteBranch(body));
 	} catch (error: unknown) {
 		if (error instanceof Error) return Response.json(error.message, { status: 400 });
 		return Response.json(error, { status: 400 });
