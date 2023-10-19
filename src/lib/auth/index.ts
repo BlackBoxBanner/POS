@@ -120,7 +120,7 @@ export const getUser: GetUser = async ({ id }) => {
 		if (error) throw new Error(error.message);
 		return data;
 	} else {
-		let { data, error } = await supabase.from('employees').select('*')
+		let { data, error } = await supabase.from('employees').select('*');
 		if (error) throw new Error(error.message);
 		return data;
 	}
