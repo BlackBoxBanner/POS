@@ -5,39 +5,39 @@ export const GET: RequestHandler = async ({ url }) => {
 	const id = params.get('id') as string;
 
 	try {
-		return new Response();
+		return Response.json("");
 	} catch (error: unknown) {
-		if (error instanceof Error) return new Response(error.message, { status: 400 });
-		return new Response(JSON.stringify(error), { status: 400 });
+		if (error instanceof Error) return Response.json(error.message, { status: 400 });
+		return Response.json(error, { status: 400 });
 	}
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as {};
+	const { } = (await request.json()) as {};
 	try {
-		return new Response();
+		return Response.json("");
 	} catch (error: unknown) {
-		if (error instanceof Error) return new Response(error.message, { status: 400 });
-		return new Response(JSON.stringify(error), { status: 400 });
+		if (error instanceof Error) return Response.json(error.message, { status: 400 });
+		return Response.json(error, { status: 400 });
 	}
 };
 
 export const PATCH: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as {};
+	const { } = (await request.json()) as {};
 	try {
-		return new Response();
+		return Response.json("");
 	} catch (error: unknown) {
-		if (error instanceof Error) return new Response(error.message, { status: 400 });
-		return new Response(JSON.stringify(error), { status: 400 });
+		if (error instanceof Error) return Response.json(error.message, { status: 400 });
+		return Response.json(error, { status: 400 });
 	}
 };
 
 export const DELETE: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as {};
+	const { } = (await request.json()) as {};
 	try {
-		return new Response();
+		return Response.json("");
 	} catch (error: unknown) {
-		if (error instanceof Error) return new Response(error.message, { status: 400 });
-		return new Response(JSON.stringify(error), { status: 400 });
+		if (error instanceof Error) return Response.json(error.message, { status: 400 });
+		return Response.json(error, { status: 400 });
 	}
 };

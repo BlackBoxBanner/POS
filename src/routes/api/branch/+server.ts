@@ -15,39 +15,40 @@ export const GET: RequestHandler = async ({ url }) => {
 	const id = params.get('id') as GetBranchProps['id'];
 
 	try {
-		return new Response(JSON.stringify(await getBranch({ id })));
+		// return new Response(JSON.stringify(await getBranch({ id })));
+		return Response.json(await getBranch({ id }))
 	} catch (error: unknown) {
-		if (error instanceof Error) return new Response(error.message, { status: 400 });
-		return new Response(JSON.stringify(error), { status: 400 });
+		if (error instanceof Error) return Response.json(error.message, { status: 400 });
+		return Response.json(error, { status: 400 });
 	}
 };
 
 export const POST: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as CreateBranchProps;
 	try {
-		return new Response(JSON.stringify(await createBranch(body)));
+		return Response.json(await createBranch(body))
 	} catch (error: unknown) {
-		if (error instanceof Error) return new Response(error.message, { status: 400 });
-		return new Response(JSON.stringify(error), { status: 400 });
+		if (error instanceof Error) return Response.json(error.message, { status: 400 });
+		return Response.json(error, { status: 400 });
 	}
 };
 
 export const PATCH: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as UpdateBranchProps;
 	try {
-		return new Response(JSON.stringify(await updateBranch(body)));
+		return Response.json(await updateBranch(body))
 	} catch (error: unknown) {
-		if (error instanceof Error) return new Response(error.message, { status: 400 });
-		return new Response(JSON.stringify(error), { status: 400 });
+		if (error instanceof Error) return Response.json(error.message, { status: 400 });
+		return Response.json(error, { status: 400 });
 	}
 };
 
 export const DELETE: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as DeleteBranchProps;
 	try {
-		return new Response(JSON.stringify(await deleteBranch(body)));
+		return Response.json(await deleteBranch(body))
 	} catch (error: unknown) {
-		if (error instanceof Error) return new Response(error.message, { status: 400 });
-		return new Response(JSON.stringify(error), { status: 400 });
+		if (error instanceof Error) return Response.json(error.message, { status: 400 });
+		return Response.json(error, { status: 400 });
 	}
 };

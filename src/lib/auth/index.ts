@@ -98,16 +98,16 @@ export const signOut: SignOut = async () => {
 export type DeleteUserProps = {
 	id: string;
 };
-type DeleteUser = (props: DeleteUserProps) => Promise<string>;
+type DeleteUser = (props: DeleteUserProps) => Promise<Tables<"employees">>;
 export const deleteUser: DeleteUser = async ({ id }) => {
 	if (!id || id === undefined) throw new Error('No id provided.');
 	const { error: authError } = await supabaseAdmin.auth.admin.deleteUser(id);
 
 	if (authError) throw new Error(authError.message);
-	const { error: databaseError } = await supabase.from('employees').delete().eq('id', id);
+	const { data, error: databaseError } = await supabase.from('employees').delete().eq('id', id).select()
 
 	if (databaseError) throw new Error(databaseError.message);
-	return `User ID ${id} has been deleted.`;
+	return data[0];
 };
 
 export type GetUserProps = {
