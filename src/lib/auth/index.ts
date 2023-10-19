@@ -1,4 +1,4 @@
-import type { Database } from '$lib/types';
+import type { Tables } from '$lib/types/schema';
 import { supabase, supabaseAdmin } from '$lib/supabase';
 import type { Session, User } from '@supabase/supabase-js';
 
@@ -20,14 +20,13 @@ export const signIn: SignIn = async ({ email, password }) => {
 	return data;
 };
 
-type Employee = Database['public']['Tables']['employees'];
 export type SignUpProps = {
 	email: string;
 	name: string;
 	password: string;
 	repetePassword: string;
 };
-type SignUp = (props: SignUpProps) => Promise<Employee['Row']>;
+type SignUp = (props: SignUpProps) => Promise<Tables<'employees'>>;
 export const signUp: SignUp = async ({ email, name, password, repetePassword }) => {
 	if (!email || email === undefined) throw new Error('No email provided');
 	if (!name || name === undefined) throw new Error('No name provided');
@@ -45,7 +44,7 @@ export const signUp: SignUp = async ({ email, name, password, repetePassword }) 
 	if (!data.user) throw new Error('No user return');
 	const { data: databaseReturn, error: databaseError } = await supabase
 		.from('employees')
-		.upsert<Employee['Insert']>({
+		.upsert({
 			id: data.user.id,
 			email,
 			name
@@ -53,7 +52,7 @@ export const signUp: SignUp = async ({ email, name, password, repetePassword }) 
 		.select();
 
 	if (databaseError) throw new Error(databaseError.message);
-	return databaseReturn[0] as Employee['Row'];
+	return databaseReturn[0];
 };
 
 export const signUpForce: SignUp = async ({ email, name, password, repetePassword }) => {
@@ -77,7 +76,7 @@ export const signUpForce: SignUp = async ({ email, name, password, repetePasswor
 
 	const { data: databaseReturn, error: databaseError } = await supabase
 		.from('employees')
-		.upsert<Employee['Insert']>({
+		.upsert({
 			id: data.user.id,
 			email,
 			name
@@ -86,7 +85,7 @@ export const signUpForce: SignUp = async ({ email, name, password, repetePasswor
 
 	if (databaseError) throw new Error(databaseError.message);
 
-	return databaseReturn[0] as Employee['Row'];
+	return databaseReturn[0];
 };
 
 export type SignOutProps = {};
@@ -99,20 +98,22 @@ export const signOut: SignOut = async () => {
 export type DeleteUserProps = {
 	id: string;
 };
-type DeleteUser = (props: DeleteUserProps) => Promise<void>;
+type DeleteUser = (props: DeleteUserProps) => Promise<string>;
 export const deleteUser: DeleteUser = async ({ id }) => {
 	if (!id || id === undefined) throw new Error('No id provided.');
 	const { error: authError } = await supabaseAdmin.auth.admin.deleteUser(id);
+
 	if (authError) throw new Error(authError.message);
 	const { error: databaseError } = await supabase.from('employees').delete().eq('id', id);
+
 	if (databaseError) throw new Error(databaseError.message);
-	return;
+	return `User ID ${id} has been deleted.`;
 };
 
 export type GetUserProps = {
 	id: string | null;
 };
-type GetUser = (props: GetUserProps) => Promise<Employee['Row'][]>;
+type GetUser = (props: GetUserProps) => Promise<Tables<'employees'>[] | null>;
 export const getUser: GetUser = async ({ id }) => {
 	if (id) {
 		let { data: employees, error: databaseError } = await supabase
@@ -121,35 +122,38 @@ export const getUser: GetUser = async ({ id }) => {
 			.eq('id', id);
 
 		if (databaseError) throw new Error(databaseError.message);
-		return employees as Employee['Row'][];
+		return employees;
 	}
 	let { data: employees, error: databaseError } = await supabase.from('employees').select('*');
 
 	if (databaseError) throw new Error(databaseError.message);
-	return employees as Employee['Row'][];
+	return employees;
 };
 
 export type UpdateUserProps = {
 	name?: string;
 };
-type UpdateUser = (props: UpdateUserProps) => Promise<Employee['Row']>;
+type UpdateUser = (props: UpdateUserProps) => Promise<Tables<'employees'>>;
 export const updateUser: UpdateUser = async ({ name }) => {
 	if (!name || name === undefined) throw new Error('Name is not provided');
 
-	const { data: session, error: sessionError } = await supabase.auth.getSession();
+	const {
+		data: { session },
+		error: sessionError
+	} = await supabase.auth.getSession();
 
 	if (sessionError) throw new Error(sessionError.message);
-	if (!session.session) throw new Error('No user signin');
+	if (!session) throw new Error('No user signin');
 
 	const { data, error: databaseError } = await supabase
 		.from('employees')
 		.update({
 			name: name
 		})
-		.eq('id', session.session?.user.id)
+		.eq('id', session?.user.id)
 		.select();
 
 	if (databaseError) throw new Error(databaseError.message);
 
-	return data[0] as Employee['Row'];
+	return data[0];
 };
