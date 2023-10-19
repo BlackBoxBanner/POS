@@ -116,18 +116,14 @@ export type GetUserProps = {
 type GetUser = (props: GetUserProps) => Promise<Tables<'employees'>[] | null>;
 export const getUser: GetUser = async ({ id }) => {
 	if (id) {
-		let { data: employees, error: databaseError } = await supabase
-			.from('employees')
-			.select('*')
-			.eq('id', id);
-
-		if (databaseError) throw new Error(databaseError.message);
-		return employees;
+		let { data, error } = await supabase.from('employees').select('*').eq('id', id);
+		if (error) throw new Error(error.message);
+		return data;
+	} else {
+		let { data, error } = await supabase.from('employees').select('*')
+		if (error) throw new Error(error.message);
+		return data;
 	}
-	let { data: employees, error: databaseError } = await supabase.from('employees').select('*');
-
-	if (databaseError) throw new Error(databaseError.message);
-	return employees;
 };
 
 export type UpdateUserProps = {
