@@ -47,10 +47,13 @@ export const deleteBranch: DeleteBranch = async ({ id }) => {
 	return data[0];
 };
 
-export type UpdateBranchProps = Updates<'branches'>;
+export type UpdateBranchProps = Updates<'branches'> & {
+	id: string
+};
 type UpdateBranch = (props: UpdateBranchProps) => Promise<Tables<'branches'>>;
-export const updateBranch: UpdateBranch = async (props) => {
-	const { data, error } = await supabase.from('branches').update(props).select();
+export const updateBranch: UpdateBranch = async ({ id, ...props }) => {
+	if (!id) throw new Error("No id provided")
+	const { data, error } = await supabase.from('branches').update(props).eq("id", id).select();
 	if (error) throw new Error(error.message);
 	return data[0];
 };
