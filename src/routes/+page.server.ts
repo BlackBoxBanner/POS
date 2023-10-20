@@ -1,9 +1,8 @@
 import type { PageServerLoad } from './$types';
 import { supabase } from "$lib/supabase"
-import { signUp } from '$lib/auth';
 
 export const load = (async () => {
-  const client = await supabase.from("employees").select("*")
-
-  return { client };
+  const { data: { session }, error } = await supabase.auth.getSession()
+  if (error) throw new Error(error.message)
+  return { session };
 }) satisfies PageServerLoad;
