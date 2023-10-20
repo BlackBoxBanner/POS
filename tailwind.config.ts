@@ -1,4 +1,3 @@
-
 import { join } from 'path';
 import type { Config } from 'tailwindcss';
 
@@ -12,10 +11,7 @@ const config = {
 	content: [
 		'./src/**/*.{html,js,svelte,ts}',
 		// 3. Append the path to the Skeleton package
-		join(require.resolve(
-			'@skeletonlabs/skeleton'),
-			'../**/*.{html,js,svelte,ts}'
-		)
+		join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
 	],
 	theme: {
 		fontFamily: {
