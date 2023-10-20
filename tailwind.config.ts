@@ -18,6 +18,9 @@ const config = {
 		)
 	],
 	theme: {
+		fontFamily: {
+			"exo": ['Exo', "sans-serif"]
+		},
 		extend: {},
 	},
 	plugins: [
