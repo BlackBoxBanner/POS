@@ -98,16 +98,20 @@ export const signOut: SignOut = async () => {
 export type DeleteUserProps = {
 	id: string;
 };
-type DeleteUser = (props: DeleteUserProps) => Promise<string>;
+type DeleteUser = (props: DeleteUserProps) => Promise<Tables<'employees'>>;
 export const deleteUser: DeleteUser = async ({ id }) => {
 	if (!id || id === undefined) throw new Error('No id provided.');
 	const { error: authError } = await supabaseAdmin.auth.admin.deleteUser(id);
 
 	if (authError) throw new Error(authError.message);
-	const { error: databaseError } = await supabase.from('employees').delete().eq('id', id);
+	const { data, error: databaseError } = await supabase
+		.from('employees')
+		.delete()
+		.eq('id', id)
+		.select();
 
 	if (databaseError) throw new Error(databaseError.message);
-	return `User ID ${id} has been deleted.`;
+	return data[0];
 };
 
 export type GetUserProps = {
@@ -116,18 +120,14 @@ export type GetUserProps = {
 type GetUser = (props: GetUserProps) => Promise<Tables<'employees'>[] | null>;
 export const getUser: GetUser = async ({ id }) => {
 	if (id) {
-		let { data: employees, error: databaseError } = await supabase
-			.from('employees')
-			.select('*')
-			.eq('id', id);
-
-		if (databaseError) throw new Error(databaseError.message);
-		return employees;
+		let { data, error } = await supabase.from('employees').select('*').eq('id', id);
+		if (error) throw new Error(error.message);
+		return data;
+	} else {
+		let { data, error } = await supabase.from('employees').select('*');
+		if (error) throw new Error(error.message);
+		return data;
 	}
-	let { data: employees, error: databaseError } = await supabase.from('employees').select('*');
-
-	if (databaseError) throw new Error(databaseError.message);
-	return employees;
 };
 
 export type UpdateUserProps = {
