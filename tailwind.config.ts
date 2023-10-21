@@ -15,9 +15,9 @@ const config = {
 	],
 	theme: {
 		fontFamily: {
-			"exo": ['Exo', "sans-serif"]
+			exo: ['Exo', 'sans-serif']
 		},
-		extend: {},
+		extend: {}
 	},
 	plugins: [
 		// 4. Append the Skeleton plugin (after other plugins)

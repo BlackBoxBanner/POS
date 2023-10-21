@@ -1,5 +1,3 @@
-import axios from "axios";
+import axios from 'axios';
 
-export const axiosInstant = axios.create({
-
-})
+export const axiosInstant = axios.create({});
