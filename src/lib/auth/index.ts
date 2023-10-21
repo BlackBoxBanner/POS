@@ -89,10 +89,11 @@ export const signUpForce: SignUp = async ({ email, name, password, repetePasswor
 };
 
 export type SignOutProps = {};
-type SignOut = (props?: SignOutProps) => Promise<void>;
+type SignOut = (props?: SignOutProps) => Promise<string>;
 export const signOut: SignOut = async () => {
 	const { error } = await supabase.auth.signOut();
-	if (error) throw new Error(error.message);
+	if (error) throw new Error(error.message)
+	return "Success"
 };
 
 export type DeleteUserProps = {

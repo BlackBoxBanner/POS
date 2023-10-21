@@ -17,4 +17,5 @@
 			<Signout />
 		{/if}
 	</div>
+	<a class="btn variant-filled-secondary" href="/user">user</a>
 </div>

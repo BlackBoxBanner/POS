@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 import { signOut } from '$lib/auth';
 
-export const POST: RequestHandler = async ({ request }) => {
+export const DELETE: RequestHandler = async ({ request }) => {
 	try {
 		return Response.json(await signOut());
 	} catch (error: unknown) {

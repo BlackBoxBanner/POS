@@ -35,7 +35,7 @@
 		const func = id.reduce((result, next) => {
 			result = [
 				...result,
-				axiosInstant.delete('/api/auth/user', {
+				axiosInstant.delete('/api/auth/users', {
 					data: {
 						id: next
 					}
@@ -44,7 +44,13 @@
 			return result;
 		}, [] as Promise<AxiosResponse<any, any>>[]);
 
-		const test = await Promise.all(func);
+		const resResult = await Promise.all(func);
+
+		resResult.forEach((res) => {
+			if (res.status !== 200) throw new Error(res.statusText);
+		});
+
+		location.reload();
 	}
 </script>
 
