@@ -7,12 +7,13 @@ create table if not exists public.branches (
   constraint addresses_branch_name_key unique (branch_name)
 ) tablespace pg_default;
 
-create table if not exists public.tables (
+create table public.tables (
   id uuid not null default gen_random_uuid (),
-  table_number smallint not null,
   seat smallint not null,
   created_at timestamp with time zone not null default now(),
-  constraint tables_pkey primary key (id)
+  table_number smallint not null,
+  constraint tables_pkey primary key (id),
+  constraint tables_table_number_key unique (table_number)
 ) tablespace pg_default;
 
 create table if not exists public.employees (
