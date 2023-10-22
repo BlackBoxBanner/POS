@@ -2,7 +2,7 @@
 	import axios from 'axios';
 
 	const onClick = async () => {
-		const { status, statusText } = await axios.delete('/api/auth/signout');
+		const { status, statusText } = await axios.post('/api/auth/signout');
 		if (status !== 200) throw new Error(statusText);
 		location.reload();
 	};

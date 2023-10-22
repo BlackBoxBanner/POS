@@ -5,8 +5,9 @@
 	// export let data: PageData;
 
 	import { goto } from '$app/navigation';
-	import type { SignUpProps } from '$lib/auth';
 	import { axiosInstant } from '$lib/axios';
+	import Input from '$lib/components/input.svelte';
+	import type { SignUpProps } from '$lib/types/auth';
 
 	let email = '';
 	let password = '';
@@ -15,13 +16,14 @@
 
 	const handleSubmit = async (event: SubmitEvent) => {
 		event.preventDefault();
-		const endPointUrl = dev ? '/api/auth/signup/force' : '/api/auth/signup';
+		const endPointUrl = '/api/auth/signup';
 
 		const { status, statusText } = await axiosInstant.post(endPointUrl, {
 			email,
 			name,
 			password,
-			repetePassword
+			repetePassword,
+			force: dev
 		} as SignUpProps);
 
 		if (status !== 200) throw new Error(statusText);
@@ -30,32 +32,40 @@
 </script>
 
 <form on:submit={handleSubmit} class="flex flex-col gap-2">
-	<input
+	<Input
+		label="email"
 		type="text"
+		id="email"
 		placeholder="email"
 		bind:value={email}
 		class="input w-80 px-4 py-1"
 		autocomplete="email"
 		required
 	/>
-	<input
+	<Input
+		label="name"
 		type="text"
+		id="name"
 		placeholder="name"
 		bind:value={name}
 		class="input w-80 px-4 py-1"
 		autocomplete="email"
 		required
 	/>
-	<input
+	<Input
+		label="password"
 		type="password"
+		id="password"
 		placeholder="password"
 		bind:value={password}
 		class="input w-80 px-4 py-1"
 		autocomplete="current-password"
 		required
 	/>
-	<input
+	<Input
+		label="repete password"
 		type="password"
+		id="repetePassword"
 		placeholder="repete password"
 		bind:value={repetePassword}
 		class="input w-80 px-4 py-1"

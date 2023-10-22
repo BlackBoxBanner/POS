@@ -4,8 +4,9 @@
 	// export let data: PageData;
 
 	import { goto } from '$app/navigation';
-	import type { SignInProps } from '$lib/auth';
 	import { axiosInstant } from '$lib/axios';
+	import type { SignInProps } from '$lib/types/auth';
+	import Input from '$lib/components/input.svelte';
 
 	$: emailInput = '';
 	$: passwordInput = '';
@@ -24,16 +25,20 @@
 </script>
 
 <form on:submit={handleSubmit} class="flex flex-col gap-2">
-	<input
+	<Input
+		label="Email"
 		type="text"
+		id="email"
 		placeholder="email"
 		bind:value={emailInput}
 		class="input w-80 px-4 py-1"
 		autocomplete="email"
 		required
 	/>
-	<input
+	<Input
+		label="Password"
 		type="password"
+		id="password"
 		placeholder="password"
 		bind:value={passwordInput}
 		class="input w-80 px-4 py-1"
