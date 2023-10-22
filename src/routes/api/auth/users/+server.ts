@@ -1,10 +1,5 @@
-import {
-	deleteUser,
-	getUser,
-	type DeleteUserProps,
-	type UpdateUserProps,
-	updateUser
-} from '$lib/auth';
+import { getUser, deleteUser, updateUser } from '$lib/auth';
+import type { DeleteUserProps, UpdateUserProps } from '$lib/types/auth';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url }) => {
