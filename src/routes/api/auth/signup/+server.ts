@@ -1,5 +1,7 @@
-import type { RequestHandler } from './$types';
-import { signUp, type SignUpProps } from '$lib/auth';
+import { signUp } from '$lib/auth';
+import type { SignUpProps } from '$lib/types/auth';
+import type { RequestHandler } from '@sveltejs/kit';
+
 export const POST: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as SignUpProps;
 
