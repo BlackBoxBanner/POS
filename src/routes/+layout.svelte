@@ -6,6 +6,6 @@
 <svelte:head
 	>{@html `<script>${autoModeWatcher.toString()} autoModeWatcher();</script>`}</svelte:head
 >
-<div class="bg-slate-800 text-slate-300 h-screen overflow-auto">
+<div class="bg-primary-800 text-secondary-300 h-screen overflow-auto">
 	<slot />
 </div>

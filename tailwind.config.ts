@@ -14,6 +14,9 @@ const config = {
 		join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
 	],
 	theme: {
+		fontFamily: {
+			exo: ['Exo', 'sans-serif']
+		},
 		extend: {}
 	},
 	plugins: [
