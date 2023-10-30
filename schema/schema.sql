@@ -16,13 +16,15 @@ create table public.tables (
   constraint tables_table_number_key unique (table_number)
 ) tablespace pg_default;
 
-create table if not exists public.employees (
+create table public.employees (
   id uuid not null default gen_random_uuid (),
   email character varying not null,
   name character varying not null,
   created_at timestamp with time zone not null default now(),
+  branch_id uuid null,
   constraint employees_pkey primary key (id),
-  constraint employees_email_key unique (email)
+  constraint employees_email_key unique (email),
+  constraint employees_branch_id_fkey foreign key (branch_id) references branches (id) on delete cascade
 ) tablespace pg_default;
 
 create table if not exists public.dish_types (
@@ -47,14 +49,6 @@ create table if not exists public.customers (
   constraint customers_branch_id_fkey foreign key (branch_id) references branches (id) on update cascade
 ) tablespace pg_default;
 
-create table if not exists public.employees_branches (
-  branch_id uuid not null,
-  employee_id uuid not null,
-  constraint employees_branches_pkey primary key (branch_id, employee_id),
-  constraint employees_branches_branch_id_fkey foreign key (branch_id) references branches (id) on delete cascade,
-  constraint employees_branches_employee_id_fkey foreign key (employee_id) references employees (id) on delete cascade
-) tablespace pg_default;
-
 create table if not exists public.menus (
   id uuid not null default gen_random_uuid (),
   created_at timestamp with time zone not null default now(),
@@ -74,14 +68,7 @@ create table if not exists public.orders (
   status boolean not null default true,
   table_id uuid not null,
   created_at timestamp with time zone not null default now(),
+  menu_id uuid [] null,
   constraint orders_pkey primary key (id),
   constraint orders_table_id_fkey foreign key (table_id) references tables (id) on update cascade on delete cascade
-) tablespace pg_default;
-
-create table if not exists public.menus_orders (
-  menu_id uuid not null,
-  order_id uuid not null,
-  constraint menus_orders_pkey primary key (menu_id, order_id),
-  constraint menus_orders_menu_id_fkey foreign key (menu_id) references menus (id) on delete cascade,
-  constraint menus_orders_order_id_fkey foreign key (order_id) references orders (id) on delete cascade
 ) tablespace pg_default;
