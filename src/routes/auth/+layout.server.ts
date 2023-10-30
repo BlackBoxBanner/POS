@@ -1,5 +1,5 @@
-import type { PageServerLoad } from './$types';
 import { supabase } from '$lib/supabase';
+import type { LayoutServerLoad } from './$types';
 
 export const load = (async () => {
 	const {
@@ -8,4 +8,4 @@ export const load = (async () => {
 	} = await supabase.auth.getSession();
 	if (error) throw new Error(error.message);
 	return { session };
-}) satisfies PageServerLoad;
+}) satisfies LayoutServerLoad;
