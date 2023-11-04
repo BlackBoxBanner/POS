@@ -19,6 +19,6 @@ export const deleteUser: DeleteUser = async ({ id, debug }) => {
 
 	customDebug('Checking error', debug);
 	if (databaseError) throw customError({ id: 'id', message: databaseError.message });
-	if (data.length == 0) throw customError({ id: 'id', message: "No matched ID" });
+	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return data[0];
 };

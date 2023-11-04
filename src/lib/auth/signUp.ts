@@ -68,6 +68,6 @@ export const signUp: SignUp = async ({
 
 	customDebug('Checking database error', debug);
 	if (databaseError) throw new Error(databaseError.message);
-	if (databaseReturn.length == 0) throw customError({ id: 'id', message: "No matched ID" });
+	if (databaseReturn.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return databaseReturn[0];
 };
