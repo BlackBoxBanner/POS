@@ -52,12 +52,13 @@ create table if not exists public.customers (
 create table if not exists public.menus (
   id uuid not null default gen_random_uuid (),
   created_at timestamp with time zone not null default now(),
-  name character varying not null,
   image text null,
   price numeric not null,
   status boolean not null default true,
   type uuid null,
-  constraint menus_pkey primary key (id),
+  name text not null,
+  constraint menus_pkey primary key (id, name),
+  constraint menus_name_key unique (name),
   constraint menus_type_fkey foreign key (type) references dish_types (id) on update cascade on delete
   set
     null
