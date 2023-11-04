@@ -423,21 +423,21 @@ export interface Database {
 				Row: {
 					created_at: string
 					id: string
-					menu_id: string[] | null
+					menus: string[] | null
 					status: boolean
 					table_id: string
 				}
 				Insert: {
 					created_at?: string
 					id?: string
-					menu_id?: string[] | null
+					menus?: string[] | null
 					status?: boolean
 					table_id: string
 				}
 				Update: {
 					created_at?: string
 					id?: string
-					menu_id?: string[] | null
+					menus?: string[] | null
 					status?: boolean
 					table_id?: string
 				}
