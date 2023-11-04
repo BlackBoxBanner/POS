@@ -380,8 +380,26 @@ export interface Database {
 						referencedRelation: 'branches';
 						referencedColumns: ['id'];
 					}
-				];
-			};
+				]
+			}
+			history_order: {
+				Row: {
+					created_at: string
+					id: string
+					menus: string[] | null
+				}
+				Insert: {
+					created_at?: string
+					id?: string
+					menus?: string[] | null
+				}
+				Update: {
+					created_at?: string
+					id?: string
+					menus?: string[] | null
+				}
+				Relationships: []
+			}
 			menus: {
 				Row: {
 					created_at: string;
@@ -421,32 +439,38 @@ export interface Database {
 			};
 			orders: {
 				Row: {
-					created_at: string;
-					id: string;
-					menus: string[] | null;
-					status: boolean;
-					table_id: string;
-				};
+					created_at: string
+					id: string
+					menu: string
+					status: boolean
+					table_id: string
+				}
 				Insert: {
-					created_at?: string;
-					id?: string;
-					menus?: string[] | null;
-					status?: boolean;
-					table_id: string;
-				};
+					created_at?: string
+					id?: string
+					menu: string
+					status?: boolean
+					table_id: string
+				}
 				Update: {
-					created_at?: string;
-					id?: string;
-					menus?: string[] | null;
-					status?: boolean;
-					table_id?: string;
-				};
+					created_at?: string
+					id?: string
+					menu?: string
+					status?: boolean
+					table_id?: string
+				}
 				Relationships: [
 					{
-						foreignKeyName: 'orders_table_id_fkey';
-						columns: ['table_id'];
-						referencedRelation: 'tables';
-						referencedColumns: ['id'];
+						foreignKeyName: "orders_menu_fkey"
+						columns: ["menu"]
+						referencedRelation: "menus"
+						referencedColumns: ["name"]
+					},
+					{
+						foreignKeyName: "orders_table_id_fkey"
+						columns: ["table_id"]
+						referencedRelation: "tables"
+						referencedColumns: ["id"]
 					}
 				];
 			};
