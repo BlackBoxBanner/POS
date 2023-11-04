@@ -9,6 +9,8 @@ export async function awesome<T>(
     const data = await func();
     return { data, error: undefined }
   } catch (err) {
+    console.log(err);
+    
     if (err instanceof Error) {
       return {
         data: null,

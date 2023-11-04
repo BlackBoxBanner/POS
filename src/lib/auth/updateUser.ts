@@ -27,5 +27,6 @@ export const updateUser: UpdateUser = async ({ name, debug }) => {
 		.select();
 
 	if (databaseError) throw customError({ id: 'name', message: databaseError.message });
+	if (data.length == 0) throw customError({ id: 'id', message: "No matched ID" });
 	return data[0];
 };

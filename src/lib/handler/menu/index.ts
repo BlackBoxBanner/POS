@@ -25,6 +25,7 @@ export const createMenu: CreateMenu = async ({ name, price, debug, ...rest }) =>
 
 	customDebug('Checking error', debug);
 	if (error) throw customError({ id: 'name', message: error.message });
+	if (data.length == 0) throw customError({ id: 'id', message: "No matched ID" });
 	return data[0];
 };
 
@@ -60,7 +61,9 @@ export const deleteMenu: DeleteMenu = async ({ id, debug }) => {
 	const { error, data } = await supabase.from('menus').delete().eq('id', id).select();
 
 	customDebug('Check error', debug);
+
 	if (error) throw customError({ id: 'id', message: error.message });
+	if (data.length == 0) throw customError({ id: 'id', message: "No matched ID" });
 	return data[0];
 };
 
@@ -78,5 +81,6 @@ export const updateMenu: UpdateMenu = async ({ id, debug, ...props }) => {
 
 	customDebug('Check error', debug);
 	if (error) throw customError({ id: 'id', message: error.message });
+	if (data.length == 0) throw customError({ id: 'id', message: "No matched ID" });
 	return data[0];
 };

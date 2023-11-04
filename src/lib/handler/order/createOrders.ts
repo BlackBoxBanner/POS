@@ -12,5 +12,6 @@ export const createOrder: Orders<CreateOrderProps> = async (props) => {
     id: "Create Order",
     message: error.message
   })
+	if (data.length == 0) throw customError({ id: 'id', message: "No matched ID" });
   return data[0]
 }

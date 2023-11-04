@@ -40,6 +40,9 @@ export const DELETE: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as DeleteMenuProps;
 
 	const { data, error } = await awesome(() => deleteMenu(body))
+	console.log(error);
+
 	if (error) return Response.json(error, { status: 400 });
+
 	return Response.json(data)
 };
