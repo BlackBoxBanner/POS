@@ -382,6 +382,24 @@ export interface Database {
 					}
 				]
 			}
+			history_order: {
+				Row: {
+					created_at: string
+					id: string
+					menus: string[] | null
+				}
+				Insert: {
+					created_at?: string
+					id?: string
+					menus?: string[] | null
+				}
+				Update: {
+					created_at?: string
+					id?: string
+					menus?: string[] | null
+				}
+				Relationships: []
+			}
 			menus: {
 				Row: {
 					created_at: string
@@ -423,25 +441,31 @@ export interface Database {
 				Row: {
 					created_at: string
 					id: string
-					menu_id: string[] | null
+					menu: string
 					status: boolean
 					table_id: string
 				}
 				Insert: {
 					created_at?: string
 					id?: string
-					menu_id?: string[] | null
+					menu: string
 					status?: boolean
 					table_id: string
 				}
 				Update: {
 					created_at?: string
 					id?: string
-					menu_id?: string[] | null
+					menu?: string
 					status?: boolean
 					table_id?: string
 				}
 				Relationships: [
+					{
+						foreignKeyName: "orders_menu_fkey"
+						columns: ["menu"]
+						referencedRelation: "menus"
+						referencedColumns: ["name"]
+					},
 					{
 						foreignKeyName: "orders_table_id_fkey"
 						columns: ["table_id"]

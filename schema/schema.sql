@@ -73,3 +73,11 @@ create table if not exists public.orders (
   constraint orders_pkey primary key (id),
   constraint orders_table_id_fkey foreign key (table_id) references tables (id) on update cascade on delete cascade
 ) tablespace pg_default;
+
+create table if not exists public.history_order (
+  id uuid not null default gen_random_uuid (),
+  created_at timestamp with time zone not null default now(),
+  menus text [] null,
+  constraint history_order_pkey primary key (id),
+  constraint history_order_id_key unique (id)
+) tablespace pg_default;
