@@ -7,6 +7,6 @@ export const POST: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as SignUpProps;
 
 	const { data, error } = await awesome(() => signUp(body))
-	if (error) return Response.json(error.message, { status: 400 });
+	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data)
 };

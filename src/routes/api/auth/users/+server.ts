@@ -8,7 +8,7 @@ export const GET: RequestHandler = async ({ url }) => {
 	const id = params.get('id');
 
 	const { data, error } = await awesome(() => getUser({ id }))
-	if (error) return Response.json(error.message, { status: 400 });
+	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data)
 };
 
@@ -17,7 +17,8 @@ export const DELETE: RequestHandler = async ({ request }) => {
 	if (!body.id || body.id === undefined) return Response.json('No id provided.', { status: 400 });
 
 	const { data, error } = await awesome(() => deleteUser(body))
-	if (error) return Response.json(error.message, { status: 400 });
+	
+	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data)
 };
 
@@ -27,6 +28,6 @@ export const PATCH: RequestHandler = async ({ request }) => {
 		return new Response('No name provided.', { status: 400 });
 
 	const { data, error } = await awesome(() => updateUser(body))
-	if (error) return Response.json(error.message, { status: 400 });
+	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data)
 };
