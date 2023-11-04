@@ -5,25 +5,22 @@ import { getMenu } from '../menu';
 
 type Orders<T, V = Tables<'orders'>> = (props: T) => Promise<V>;
 
-export type CreateOrderProps = {
-	table_id: string;
-	menus: string[];
-};
+export type CreateOrderProps = Pick<Inserts<'orders'>, 'table_id' | 'menu' | 'portion'>;
 
 export const createOrder: Orders<CreateOrderProps> = async (props) => {
 	const { menus } = await getMenu({});
-	if (!props.menus)
+	if (!props.menu)
 		throw customError({
 			id: 'menus',
 			message: 'No menu from input.'
 		});
 
-	const notInMenu = props.menus.filter((menu) => !menus.includes(menu));
+	const notInMenu = !menus.includes(props.menu);
 
-	if (notInMenu.length)
+	if (notInMenu)
 		throw customError({
 			id: 'menus',
-			message: `No menu(s) name ${notInMenu} in database`
+			message: `No menu name ${props.menu} in database`
 		});
 
 	const { data, error } = await supabase.from('orders').insert(props).select();

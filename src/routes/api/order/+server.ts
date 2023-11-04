@@ -24,7 +24,7 @@ export const POST: RequestHandler = async ({ request }) => {
 };
 
 export const PATCH: RequestHandler = async ({ request }) => {
-	const { } = (await request.json()) as {};
+	const {} = (await request.json()) as {};
 
 	const { data, error } = await awesome(() => exampleFunc());
 	if (error) return Response.json(error, { status: 400 });
@@ -32,7 +32,7 @@ export const PATCH: RequestHandler = async ({ request }) => {
 };
 
 export const DELETE: RequestHandler = async ({ request }) => {
-	const { } = (await request.json()) as {};
+	const {} = (await request.json()) as {};
 
 	const { data, error } = await awesome(() => exampleFunc());
 	if (error) return Response.json(error, { status: 400 });
