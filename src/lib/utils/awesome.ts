@@ -1,4 +1,4 @@
-import { customError } from "./errorHandler";
+import { errorParser } from "./errorHandler";
 
 export async function awesome<T>(
   func: () => Promise<T>,
@@ -12,9 +12,14 @@ export async function awesome<T>(
     if (err instanceof Error) {
       return {
         data: null,
-        error: customError({ message: error ? error : err.message, id }),
+        error: errorParser(err),
       }
     }
-    return { data: null, error: customError({ message: "Internal error", id }) }
+    return {
+      data: null, error: {
+        id: "internal",
+        message: "Internal error"
+      } as ErrorType
+    }
   }
 }
