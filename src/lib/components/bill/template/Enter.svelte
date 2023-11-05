@@ -7,7 +7,6 @@
 
 <div
 	class="w-[58mm] bg-white text-black flex flex-col items-center p-2 relative gap-2"
-	{...$$restProps}
 >
 	<div class="text-center">
 		<span class="text-xl font-bold">グリル ( GU-RI-RU )</span>

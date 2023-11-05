@@ -19,7 +19,7 @@
 	async function getQr() {
 		const { data } = await axiosInstant.get('/api/qr', {
 			params: {
-				url: 'localhost:3000'
+				url
 				// type: 'string'
 			}
 		});

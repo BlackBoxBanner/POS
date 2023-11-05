@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Enter from '$lib/bill/Enter.svelte';
+	import Qr from '$lib/components/bill/QR.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 </script>
 
-<Enter />
+<Qr url="https://kit.svelte.dev/docs/form-actions" />
