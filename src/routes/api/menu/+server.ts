@@ -8,6 +8,8 @@ import {
 	deleteMenu,
 	updateMenu
 } from '$lib/handler/menu';
+import { deleteOrder, type DeleteOrderProps } from '$lib/handler/order';
+import { awesome } from '$lib/utils/awesome';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url }) => {
@@ -44,11 +46,8 @@ export const PATCH: RequestHandler = async ({ request }) => {
 };
 
 export const DELETE: RequestHandler = async ({ request }) => {
-	const body = (await request.json()) as DeleteMenuProps;
-	try {
-		return Response.json(await deleteMenu(body));
-	} catch (error: unknown) {
-		if (error instanceof Error) return Response.json(error.message, { status: 400 });
-		return Response.json(error, { status: 400 });
-	}
+	const body = (await request.json()) as DeleteOrderProps;
+	const { data, error } = await awesome(() => deleteOrder(body),)
+	if (error) Response.json(error, { status: 400 });
+	return Response.json(data);
 };
