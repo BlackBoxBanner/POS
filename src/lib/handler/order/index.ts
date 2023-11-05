@@ -92,9 +92,9 @@ export const deleteOrder: Orders<DeleteOrderProps, string> = async ({ id }) => {
 	return 'successfully delete order';
 };
 
-export type UpdateOrder = Pick<Updates<"orders">, "menu" | "status" | "id">
+export type UpdateOrderProps = Pick<Updates<"orders">, "menu" | "status" | "id">
 
-export const updateOrder: Orders<UpdateOrder> = async (props) => {
+export const updateOrder: Orders<UpdateOrderProps> = async (props) => {
 	if (!props.id) throw customError({
 		id: "id",
 		message: "ID missing"
