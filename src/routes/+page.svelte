@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import Signout from '$lib/components/signout.svelte';
-	import Qr from '$lib/components/QR.svelte';
 	export let data: PageData;
 </script>
 
