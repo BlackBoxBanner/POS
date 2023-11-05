@@ -25,6 +25,7 @@ export const createMenu: CreateMenu = async ({ name, price, debug, ...rest }) =>
 
 	customDebug('Checking error', debug);
 	if (error) throw customError({ id: 'name', message: error.message });
+	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return data[0];
 };
 
@@ -32,7 +33,7 @@ export type GetMenuProps = {
 	id?: string;
 	debug?: boolean;
 };
-type GetMenu = (props: GetMenuProps) => Promise<Inserts<'menus'>[]>;
+type GetMenu = (props: GetMenuProps) => Promise<{ data: Inserts<'menus'>[]; menus: string[] }>;
 export const getMenu: GetMenu = async ({ id, debug }) => {
 	customDebug('', debug);
 	const func = id
@@ -44,7 +45,13 @@ export const getMenu: GetMenu = async ({ id, debug }) => {
 
 	customDebug('', debug);
 	if (error) throw customError({ id: 'error', message: error.message });
-	return data;
+
+	const menus = data.reduce((result, next) => {
+		result.push(next.name);
+		return result;
+	}, [] as string[]);
+
+	return { data, menus };
 };
 
 export type DeleteMenuProps = {
@@ -60,7 +67,9 @@ export const deleteMenu: DeleteMenu = async ({ id, debug }) => {
 	const { error, data } = await supabase.from('menus').delete().eq('id', id).select();
 
 	customDebug('Check error', debug);
+
 	if (error) throw customError({ id: 'id', message: error.message });
+	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return data[0];
 };
 
@@ -78,5 +87,6 @@ export const updateMenu: UpdateMenu = async ({ id, debug, ...props }) => {
 
 	customDebug('Check error', debug);
 	if (error) throw customError({ id: 'id', message: error.message });
+	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return data[0];
 };

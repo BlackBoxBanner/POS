@@ -52,12 +52,13 @@ create table if not exists public.customers (
 create table if not exists public.menus (
   id uuid not null default gen_random_uuid (),
   created_at timestamp with time zone not null default now(),
-  name character varying not null,
   image text null,
   price numeric not null,
   status boolean not null default true,
   type uuid null,
-  constraint menus_pkey primary key (id),
+  name text not null,
+  constraint menus_pkey primary key (id, name),
+  constraint menus_name_key unique (name),
   constraint menus_type_fkey foreign key (type) references dish_types (id) on update cascade on delete
   set
     null
@@ -68,8 +69,17 @@ create table if not exists public.orders (
   status boolean not null default true,
   table_id uuid not null,
   created_at timestamp with time zone not null default now(),
-  menus text [] null,
+  menu text not null,
+  portion integer not null,
   constraint orders_pkey primary key (id),
-  constraint orders_table_id_key unique (table_id),
+  constraint orders_menu_fkey foreign key (menu) references menus (name) on update cascade,
   constraint orders_table_id_fkey foreign key (table_id) references tables (id) on update cascade on delete cascade
+) tablespace pg_default;
+
+create table if not exists public.history_order (
+  id uuid not null default gen_random_uuid (),
+  created_at timestamp with time zone not null default now(),
+  menus text [] null,
+  constraint history_order_pkey primary key (id),
+  constraint history_order_id_key unique (id)
 ) tablespace pg_default;
