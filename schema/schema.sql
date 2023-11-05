@@ -69,8 +69,10 @@ create table if not exists public.orders (
   status boolean not null default true,
   table_id uuid not null,
   created_at timestamp with time zone not null default now(),
-  menu_id uuid [] null,
+  menu text not null,
+  portion integer not null,
   constraint orders_pkey primary key (id),
+  constraint orders_menu_fkey foreign key (menu) references menus (name) on update cascade,
   constraint orders_table_id_fkey foreign key (table_id) references tables (id) on update cascade on delete cascade
 ) tablespace pg_default;
 
