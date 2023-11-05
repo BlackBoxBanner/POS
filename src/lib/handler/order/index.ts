@@ -36,3 +36,20 @@ export const createOrder: Orders<CreateOrderProps> = async (props) => {
 export const getOrder = async () => {
 	return;
 };
+
+
+export type DeleteOrderProps = {
+	id: string
+}
+export const deleteOrder: Orders<DeleteOrderProps, string> = async ({ id }) => {
+	if (!id) throw customError({
+		id: "id",
+		message: "No ID provided"
+	})
+	const { error } = await supabase.from("orders").delete().eq("id", id).select("")
+	if (error) throw customError({
+		id: "database",
+		message: error.message
+	})
+	return "successfully delete order"
+}

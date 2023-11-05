@@ -1,4 +1,4 @@
-import { createOrder, type CreateOrderProps } from '$lib/handler/order';
+import { createOrder, deleteOrder, type CreateOrderProps, type DeleteOrderProps } from '$lib/handler/order';
 import { awesome } from '$lib/utils/awesome';
 import type { RequestHandler } from './$types';
 
@@ -24,7 +24,7 @@ export const POST: RequestHandler = async ({ request }) => {
 };
 
 export const PATCH: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as {};
+	const { } = (await request.json()) as {};
 
 	const { data, error } = await awesome(() => exampleFunc());
 	if (error) return Response.json(error, { status: 400 });
