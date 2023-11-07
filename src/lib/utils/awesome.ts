@@ -6,11 +6,14 @@ export async function awesome<T>(func: () => Promise<T>, error?: string, id: str
 		return { data, error: undefined };
 	} catch (err) {
 		if (err instanceof Error) {
+			console.log(err.message);
+
 			return {
 				data: null,
 				error: errorParser(err)
 			};
 		}
+
 		return {
 			data: null,
 			error: {
