@@ -5,12 +5,12 @@ import { supabase } from '$lib/supabase';
 
 type Customers<T, V = Tables<'customers'>> = (props: T) => Promise<V>;
 
-export type CreateCustomerProps = Pick<Inserts<'customers'>, 'table_number'|'employee_id'|'branch_id'>;
+export type CreateCustomerProps = Pick<Inserts<'customers'>, 'table_id'|'employee_id'|'branch_id'>;
 
-export const createCustomer: Customers<CreateCustomerProps> = async ({table_number,employee_id,branch_id}) => {
+export const createCustomer: Customers<CreateCustomerProps> = async ({table_id,employee_id,branch_id}) => {
     //customDebug('Checking Customer', debug);
-    if(!table_number || table_number === undefined)
-        throw customError({id: 'table_number', message: 'Table ID not provided'});
+    if(!table_id || table_id === undefined)
+        throw customError({id: 'table_id', message: 'Table ID not provided'});
     if(!employee_id || employee_id === undefined)
         throw customError({id: 'employee_id', message: 'No employee assigned to customer'});
     if(branch_id || branch_id === undefined)
@@ -19,7 +19,7 @@ export const createCustomer: Customers<CreateCustomerProps> = async ({table_numb
     const { data, error } = await supabase
 		.from('customer')
 		.insert({
-			table_number,
+			table_id,
 			employee_id,
             branch_id
         })
