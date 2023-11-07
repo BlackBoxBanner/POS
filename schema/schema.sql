@@ -80,6 +80,8 @@ create table if not exists public.history_order (
   id uuid not null default gen_random_uuid (),
   created_at timestamp with time zone not null default now(),
   menus text [] null,
-  constraint history_order_pkey primary key (id),
-  constraint history_order_id_key unique (id)
+  customer_id uuid not null,
+  constraint history_order_pkey primary key (id, customer_id),
+  constraint history_order_id_key unique (id),
+  constraint history_order_customer_id_fkey foreign key (customer_id) references pos.customers (id) on update cascade on delete cascade
 ) tablespace pg_default;
