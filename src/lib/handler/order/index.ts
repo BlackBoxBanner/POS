@@ -8,7 +8,7 @@ type Orders<T, V = Tables<'orders'>> = (props: T) => Promise<V>;
 export type CreateOrderProps = Pick<Inserts<'orders'>, 'table_id' | 'menu' | 'portion'>;
 
 export const createOrder: Orders<CreateOrderProps> = async (props) => {
-	const { menus } = await getMenu({});
+	const { menus, data: menuList } = await getMenu({});
 	if (!props.menu)
 		throw customError({
 			id: 'menus',
@@ -23,7 +23,18 @@ export const createOrder: Orders<CreateOrderProps> = async (props) => {
 			message: `No menu name ${props.menu} in database`
 		});
 
-	const { data, error } = await supabase.from('orders').insert(props).select();
+	const price = menuList.filter((value) => value.name == props.menu)[0].price;
+
+	if (!price || price == undefined)
+		throw customError({
+			id: 'price',
+			message: 'No menu in database.'
+		});
+
+	const { data, error } = await supabase
+		.from('orders')
+		.insert({ ...props, price: price * props.portion })
+		.select();
 	if (error)
 		throw customError({
 			id: 'Create Order',
@@ -47,7 +58,7 @@ export const getOrders: Orders<GetOrdersProps, Tables<'orders'>[]> = async ({ id
 	if (id) {
 		query = query.eq('id', id);
 	} else if (table_id) {
-		query = query.eq('id', table_id);
+		query = query.eq('table_id', table_id!);
 	}
 
 	const { data, error } = await query;
@@ -75,15 +86,21 @@ export const getOrders: Orders<GetOrdersProps, Tables<'orders'>[]> = async ({ id
 };
 
 export type DeleteOrderProps = {
-	id: string;
+	id?: string;
+	table_id?: string;
 };
-export const deleteOrder: Orders<DeleteOrderProps, string> = async ({ id }) => {
-	if (!id)
-		throw customError({
-			id: 'id',
-			message: 'No ID provided'
-		});
-	const { error } = await supabase.from('orders').delete().eq('id', id).select('');
+export const deleteOrder: Orders<DeleteOrderProps, string> = async ({ id, table_id }) => {
+	let query = supabase.from('orders').delete();
+
+	console.log(id);
+
+	if (id) {
+		query = query.eq('id', id);
+	} else if (table_id) {
+		query = query.eq('table_id', table_id);
+	}
+
+	const { error } = await query;
 	if (error)
 		throw customError({
 			id: 'database',
@@ -92,18 +109,20 @@ export const deleteOrder: Orders<DeleteOrderProps, string> = async ({ id }) => {
 	return 'successfully delete order';
 };
 
-export type UpdateOrderProps = Pick<Updates<"orders">, "menu" | "status" | "id">
+export type UpdateOrderProps = Pick<Updates<'orders'>, 'menu' | 'status' | 'id'>;
 
 export const updateOrder: Orders<UpdateOrderProps> = async (props) => {
-	if (!props.id) throw customError({
-		id: "id",
-		message: "ID missing"
-	})
-	const { data, error } = await supabase.from("orders").update(props).eq("id", props.id).select()
+	if (!props.id)
+		throw customError({
+			id: 'id',
+			message: 'ID missing'
+		});
+	const { data, error } = await supabase.from('orders').update(props).eq('id', props.id).select();
 
-	if (error) throw customError({
-		id: "id",
-		message: error.message
-	})
-	return data[0]
-}
+	if (error)
+		throw customError({
+			id: 'id',
+			message: error.message
+		});
+	return data[0];
+};

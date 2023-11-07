@@ -26,7 +26,7 @@ export const GET: RequestHandler = async ({ url }) => {
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-	const body = (await request.json()) as CreateOrderProps;
+	const body = (await request.json()) as Omit<CreateOrderProps, 'price'>;
 
 	const { data, error } = await awesome(() => createOrder(body));
 	if (error) return Response.json(error, { status: 400 });
