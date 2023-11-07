@@ -385,20 +385,30 @@ export interface Database {
 			history_order: {
 				Row: {
 					created_at: string;
+					customer_id: string;
 					id: string;
-					menus: string[] | null;
+					menus: Json[] | null;
 				};
 				Insert: {
 					created_at?: string;
+					customer_id: string;
 					id?: string;
-					menus?: string[] | null;
+					menus?: Json[] | null;
 				};
 				Update: {
 					created_at?: string;
+					customer_id?: string;
 					id?: string;
-					menus?: string[] | null;
+					menus?: Json[] | null;
 				};
-				Relationships: [];
+				Relationships: [
+					{
+						foreignKeyName: 'history_order_customer_id_fkey';
+						columns: ['customer_id'];
+						referencedRelation: 'customers';
+						referencedColumns: ['id'];
+					}
+				];
 			};
 			menus: {
 				Row: {
@@ -443,6 +453,7 @@ export interface Database {
 					id: string;
 					menu: string;
 					portion: number;
+					price: number;
 					status: boolean;
 					table_id: string;
 				};
@@ -451,6 +462,7 @@ export interface Database {
 					id?: string;
 					menu: string;
 					portion: number;
+					price: number;
 					status?: boolean;
 					table_id: string;
 				};
@@ -459,6 +471,7 @@ export interface Database {
 					id?: string;
 					menu?: string;
 					portion?: number;
+					price?: number;
 					status?: boolean;
 					table_id?: string;
 				};

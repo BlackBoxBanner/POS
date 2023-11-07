@@ -71,15 +71,18 @@ create table if not exists public.orders (
   created_at timestamp with time zone not null default now(),
   menu text not null,
   portion integer not null,
+  price double precision not null,
   constraint orders_pkey primary key (id),
-  constraint orders_menu_fkey foreign key (menu) references menus (name) on update cascade,
-  constraint orders_table_id_fkey foreign key (table_id) references tables (id) on update cascade on delete cascade
+  constraint orders_table_id_fkey foreign key (table_id) references tables (id) on update cascade on delete cascade,
+  constraint orders_menu_fkey foreign key (menu) references menus (name) on update cascade
 ) tablespace pg_default;
 
 create table if not exists public.history_order (
   id uuid not null default gen_random_uuid (),
   created_at timestamp with time zone not null default now(),
-  menus text [] null,
+  menus jsonb [] null,
+  customer_id uuid not null,
   constraint history_order_pkey primary key (id),
-  constraint history_order_id_key unique (id)
+  constraint history_order_id_key unique (id),
+  constraint history_order_customer_id_fkey foreign key (customer_id) references customers (id)
 ) tablespace pg_default;
