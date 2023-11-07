@@ -9,7 +9,7 @@ const exampleFunc = async () => {
 export const GET: RequestHandler = async ({ url }) => {
 	const searchParams = url.searchParams;
 	let params: GetHistoryOrder = {
-		id: searchParams.get('id') as GetHistoryOrder["id"]
+		id: searchParams.get('id') as GetHistoryOrder['id']
 	};
 
 	const { data, error } = await awesome(() => getHistory(params));
@@ -18,7 +18,7 @@ export const GET: RequestHandler = async ({ url }) => {
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-	const { } = (await request.json()) as {};
+	const {} = (await request.json()) as {};
 
 	const { data, error } = await awesome(() => exampleFunc());
 	if (error) return Response.json(error, { status: 400 });
