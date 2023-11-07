@@ -1,3 +1,4 @@
+import { updateCustomer, type UpdateCustomerProps } from '$lib/handler/customer';
 import { awesome } from '$lib/utils/awesome';
 import type { RequestHandler } from './$types';
 
@@ -15,7 +16,7 @@ export const GET: RequestHandler = async ({ url }) => {
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as {};
+	const { } = (await request.json()) as {};
 
 	const { data, error } = await awesome(() => exampleFunc());
 	if (error) return Response.json(error, { status: 400 });
@@ -23,15 +24,15 @@ export const POST: RequestHandler = async ({ request }) => {
 };
 
 export const PATCH: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as {};
+	const body = (await request.json()) as UpdateCustomerProps
 
-	const { data, error } = await awesome(() => exampleFunc());
+	const { data, error } = await awesome(() => updateCustomer(body));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
 
 export const DELETE: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as {};
+	const { } = (await request.json()) as {};
 
 	const { data, error } = await awesome(() => exampleFunc());
 	if (error) return Response.json(error, { status: 400 });
