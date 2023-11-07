@@ -1,3 +1,4 @@
+import { getCustomer, type GetCustomerProps } from '$lib/handler/customer';
 import { awesome } from '$lib/utils/awesome';
 import type { RequestHandler } from './$types';
 
@@ -6,10 +7,12 @@ const exampleFunc = async () => {
 };
 
 export const GET: RequestHandler = async ({ url }) => {
-	const params = url.searchParams;
-	const id = params.get('id') as string;
+	const searchParams = url.searchParams;
+	let params: GetCustomerProps = {
+		id: searchParams.get('id') as string
+	};
 
-	const { data, error } = await awesome(() => exampleFunc());
+	const { data, error } = await awesome(() => getCustomer(params));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
