@@ -1,3 +1,7 @@
+import {
+	createCustomer,
+	type CreateCustomerProps
+} from '$lib/handler/customer';
 import { getCustomer, type GetCustomerProps } from '$lib/handler/customer';
 import { updateCustomer, type UpdateCustomerProps } from '$lib/handler/customer';
 import { awesome } from '$lib/utils/awesome';
@@ -19,9 +23,9 @@ export const GET: RequestHandler = async ({ url }) => {
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-	const { } = (await request.json()) as {};
+	const body = (await request.json()) as CreateCustomerProps;
 
-	const { data, error } = await awesome(() => exampleFunc());
+	const { data, error } = await awesome(() => createCustomer(body));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
