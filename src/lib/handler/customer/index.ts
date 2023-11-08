@@ -1,6 +1,5 @@
 import type { Inserts , Tables , Updates } from "$lib/types/schema";
 import { customError } from "$lib/utils/errorHandler";
-import { getBranch } from '../branch';
 import { supabase } from '$lib/supabase';
 
 type Customers<T, V = Tables<'customers'>> = (props: T) => Promise<V>;
@@ -28,7 +27,36 @@ export const createCustomer: Customers<CreateCustomerProps> = async ({table_id,e
     if (error) throw customError({ id: 'customer_id', message: error.message });
     if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
     return data[0];
-}; '$lib/utils/errorHandler';
+};
+
+export type GetCustomerProps = {
+	id?: string;
+};
+
+export const getCustomer: Customers<GetCustomerProps, Tables<'orders'>[]> = async ({ id }) => {
+	let query = supabase.from('orders').select('*');
+
+	if (id) {
+		query = query.eq('id', id);
+	}
+	const { data, error } = await query;
+
+	if (error) {
+		if (id) {
+			throw customError({
+				id: 'id',
+				message: `Error fetching order by id: ${error.message}`
+			});
+		} else {
+			throw customError({
+				id: 'general',
+				message: `Error fetching orders: ${error.message}`
+			});
+		}
+	}
+
+	return data;
+};
 
 export type UpdateCustomerProps = Pick<Updates<"customers">, "table_id" | "check_out_at" | "take_away"> & {
   id: string
@@ -44,3 +72,4 @@ export const updateCustomer: Customers<UpdateCustomerProps> = async ({ id, ...pr
 
   return data[0]
 }
+
