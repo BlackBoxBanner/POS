@@ -32,3 +32,33 @@ export const createHistory: History<CreateHistoryProps> = async ({ menus, custom
 
 	return data[0];
 };
+
+type HistoryOrders = Tables<'history_order'>;
+
+export type GetHistoryOrder = {
+	id?: string;
+};
+export const getHistory: History<GetHistoryOrder, HistoryOrders[]> = async ({ id }) => {
+	let query = supabase.from('history_order').select('*');
+
+	if (id) {
+		query = query.eq('id', id);
+	}
+	const { data, error } = await query;
+
+	if (error) {
+		if (id) {
+			throw customError({
+				id: 'id',
+				message: `Error fetching order by id: ${error.message}`
+			});
+		} else {
+			throw customError({
+				id: 'general',
+				message: `Error fetching orders: ${error.message}`
+			});
+		}
+	}
+
+	return data;
+};
