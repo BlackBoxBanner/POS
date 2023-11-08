@@ -6,8 +6,10 @@ const exampleFunc = async () => {
 };
 
 export const GET: RequestHandler = async ({ url }) => {
-	const params = url.searchParams;
-	const id = params.get('id') as string;
+	const searchParams = url.searchParams;
+	let params: Record<string, string> = {
+		id: searchParams.get('id') as string
+	};
 
 	const { data, error } = await awesome(() => exampleFunc());
 	if (error) return Response.json(error, { status: 400 });

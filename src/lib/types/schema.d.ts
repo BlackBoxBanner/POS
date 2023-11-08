@@ -385,20 +385,30 @@ export interface Database {
 			history_order: {
 				Row: {
 					created_at: string;
+					customer_id: string;
 					id: string;
 					menus: string[] | null;
 				};
 				Insert: {
 					created_at?: string;
+					customer_id: string;
 					id?: string;
 					menus?: string[] | null;
 				};
 				Update: {
 					created_at?: string;
+					customer_id?: string;
 					id?: string;
 					menus?: string[] | null;
 				};
-				Relationships: [];
+				Relationships: [
+					{
+						foreignKeyName: 'history_order_customer_id_fkey';
+						columns: ['customer_id'];
+						referencedRelation: 'customers';
+						referencedColumns: ['id'];
+					}
+				];
 			};
 			menus: {
 				Row: {

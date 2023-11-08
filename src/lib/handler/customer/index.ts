@@ -28,8 +28,19 @@ export const createCustomer: Customers<CreateCustomerProps> = async ({table_id,e
     if (error) throw customError({ id: 'customer_id', message: error.message });
     if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
     return data[0];
-};
+}; '$lib/utils/errorHandler';
 
+export type UpdateCustomerProps = Pick<Updates<"customers">, "table_id" | "check_out_at" | "take_away"> & {
+  id: string
+}
 
+export const updateCustomer: Customers<UpdateCustomerProps> = async ({ id, ...props }) => {
+  const { data, error } = await supabase.from("customers").update(props).eq("id", id).select()
 
+  if (error) throw customError({
+    id: "id",
+    message: error.message
+  })
 
+  return data[0]
+}

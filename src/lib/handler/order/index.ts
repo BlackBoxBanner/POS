@@ -92,18 +92,20 @@ export const deleteOrder: Orders<DeleteOrderProps, string> = async ({ id }) => {
 	return 'successfully delete order';
 };
 
-export type UpdateOrderProps = Pick<Updates<"orders">, "menu" | "status" | "id">
+export type UpdateOrderProps = Pick<Updates<'orders'>, 'menu' | 'status' | 'id'>;
 
 export const updateOrder: Orders<UpdateOrderProps> = async (props) => {
-	if (!props.id) throw customError({
-		id: "id",
-		message: "ID missing"
-	})
-	const { data, error } = await supabase.from("orders").update(props).eq("id", props.id).select()
+	if (!props.id)
+		throw customError({
+			id: 'id',
+			message: 'ID missing'
+		});
+	const { data, error } = await supabase.from('orders').update(props).eq('id', props.id).select();
 
-	if (error) throw customError({
-		id: "id",
-		message: error.message
-	})
-	return data[0]
-}
+	if (error)
+		throw customError({
+			id: 'id',
+			message: error.message
+		});
+	return data[0];
+};
