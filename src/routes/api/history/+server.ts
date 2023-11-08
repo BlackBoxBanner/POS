@@ -5,10 +5,6 @@ import { deleteOrder, getOrders } from '$lib/handler/order';
 import { awesome } from '$lib/utils/awesome';
 import type { RequestHandler } from './$types';
 
-const exampleFunc = async () => {
-	return 'example function toggle';
-};
-
 export const GET: RequestHandler = async ({ url }) => {
 	const searchParams = url.searchParams;
 	let params: GetHistoryOrder = {
