@@ -1,13 +1,19 @@
 <script lang="ts">
+	import { useQr } from '$lib/utils/useQr';
+	import { onMount } from 'svelte';
+
 	export let branch = 'KMUTT';
 	export let tableNumber = 1;
 	export let customerCount = 10;
-	export let src: string;
+	export let url: string;
+	let src: string;
+
+	onMount(async () => {
+		src = await useQr({ url });
+	});
 </script>
 
-<div
-	class="w-[58mm] bg-white text-black flex flex-col items-center p-2 relative gap-2"
->
+<div class="w-[58mm] bg-white text-black flex flex-col items-center p-2 relative gap-2">
 	<div class="text-center">
 		<span class="text-xl font-bold">グリル ( GU-RI-RU )</span>
 		<p class="store-detail">
