@@ -1,4 +1,4 @@
-import type { Inserts ,Tables } from '$lib/types/schema';
+import type { Inserts ,Tables, Updates } from '$lib/types/schema';
 import { customError } from '$lib/utils/errorHandler';
 import { supabase } from '$lib/supabase';
 
@@ -52,4 +52,25 @@ export const getDishType: Type<GetTypeProps, Tables<'dish_types'>[]> = async ({ 
 	}
 
 	return data;
+};
+
+
+export type UpdateTypeProps = Pick<Updates<'dish_types'>,  'id' | 'name'>;
+
+export const updateDishType: Type<UpdateTypeProps> = async (props) => {
+	if (!props.id)
+		throw customError({
+			id: 'id',
+			message: 'ID missing'
+		});
+
+	console.log(props)
+	const { data, error } = await supabase.from('dish_types').update(props).eq('id', props.id).select();
+
+	if (error)
+		throw customError({
+			id: 'id',
+			message: error.message
+		});
+	return data[0];
 };
