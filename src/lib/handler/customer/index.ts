@@ -1,8 +1,6 @@
 import { supabase } from '$lib/supabase';
 import type { Inserts , Tables , Updates } from "$lib/types/schema";
 import { customError } from "$lib/utils/errorHandler";
-import { supabase } from '$lib/supabase';
-import { customError } from '$lib/utils/errorHandler';
 
 type Customers<T, V = Tables<'customers'>> = (props: T) => Promise<V>;
 
