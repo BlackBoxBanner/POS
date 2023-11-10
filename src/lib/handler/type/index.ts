@@ -25,3 +25,31 @@ export const createDishType: Type<CreateTypeProps> = async (props) => {
 	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return data[0];
 };
+
+export type GetTypeProps = {
+	id?: string;
+};
+export const getDishType: Type<GetTypeProps, Tables<'dish_types'>[]> = async ({ id }) => {
+	let query = supabase.from('dish_types').select('*');
+
+	if (id) query = query.eq('id', id);
+	
+
+	const { data, error } = await query;
+
+	if (error) {
+		if (id) {
+			throw customError({
+				id: 'id',
+				message: `Error fetching dishtype by id: ${error.message}`
+			});
+		} else {
+			throw customError({
+				id: 'general',
+				message: `Error fetching dishtype: ${error.message}`
+			});
+		}
+	}
+
+	return data;
+};

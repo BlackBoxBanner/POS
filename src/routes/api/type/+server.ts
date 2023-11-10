@@ -1,5 +1,6 @@
 import {
 	createDishType,
+	getDishType,
 	type CreateTypeProps
 } from '$lib/handler/type';
 import { awesome } from '$lib/utils/awesome';
@@ -13,13 +14,13 @@ export const GET: RequestHandler = async ({ url }) => {
 	const params = url.searchParams;
 	const id = params.get('id') as string;
 
-	const { data, error } = await awesome(() => exampleFunc());
+	const { data, error } = await awesome(() => getDishType({id}));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as CreateTypeProps;
+	const body = (await request.json()) as CreateTypeProps;
 
 	const { data, error } = await awesome(() => createDishType(body));
 	if (error) return Response.json(error, { status: 400 });
