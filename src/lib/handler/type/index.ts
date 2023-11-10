@@ -74,3 +74,21 @@ export const updateDishType: Type<UpdateTypeProps> = async (props) => {
 		});
 	return data[0];
 };
+
+export type DeleteTypeProps = {
+	id: string;
+};
+export const deleteDishType: Type<DeleteTypeProps, string> = async ({ id }) => {
+	if (!id)
+		throw customError({
+			id: 'id',
+			message: 'No ID provided'
+		});
+	const { error } = await supabase.from('dish_types').delete().eq('id', id).select('');
+	if (error)
+		throw customError({
+			id: 'database',
+			message: error.message
+		});
+	return 'successfully delete dish type';
+};
