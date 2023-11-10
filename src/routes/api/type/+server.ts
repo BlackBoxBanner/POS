@@ -3,7 +3,9 @@ import {
 	getDishType,
 	type CreateTypeProps,
 	type UpdateTypeProps,
-	updateDishType
+	updateDishType,
+	type DeleteTypeProps,
+	deleteDishType
 } from '$lib/handler/type';
 import { awesome } from '$lib/utils/awesome';
 import type { RequestHandler } from './$types';
@@ -38,9 +40,9 @@ export const PATCH: RequestHandler = async ({ request }) => {
 };
 
 export const DELETE: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as {};
+	const body = (await request.json()) as DeleteTypeProps;
 
-	const { data, error } = await awesome(() => exampleFunc());
+	const { data, error } = await awesome(() => deleteDishType(body));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
