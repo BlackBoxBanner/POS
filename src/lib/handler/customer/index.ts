@@ -1,8 +1,30 @@
+import { supabase } from '$lib/supabase';
 import type { Inserts , Tables , Updates } from "$lib/types/schema";
 import { customError } from "$lib/utils/errorHandler";
 import { supabase } from '$lib/supabase';
+import { customError } from '$lib/utils/errorHandler';
 
 type Customers<T, V = Tables<'customers'>> = (props: T) => Promise<V>;
+
+type GetId = (props: GetIdProps) => Promise<string | undefined>;
+
+export type GetIdProps = {
+	table_id: string;
+};
+export const getId: GetId = async ({ table_id }) => {
+	const { data, error } = await supabase
+		.from('customers')
+		.select('id')
+		.eq('table_id', table_id)
+		.is('check_out_at', null);
+	if (error)
+		throw customError({
+			id: 'table_id',
+			message: error.message
+		});
+
+	return data[0].id;
+};
 
 export type CreateCustomerProps = Pick<Inserts<'customers'>, 'table_id'|'employee_id'|'branch_id'>;
 
