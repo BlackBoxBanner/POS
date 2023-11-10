@@ -1,3 +1,7 @@
+import {
+	createDishType,
+	type CreateTypeProps
+} from '$lib/handler/type';
 import { awesome } from '$lib/utils/awesome';
 import type { RequestHandler } from './$types';
 
@@ -15,9 +19,9 @@ export const GET: RequestHandler = async ({ url }) => {
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as {};
+	const {} = (await request.json()) as CreateTypeProps;
 
-	const { data, error } = await awesome(() => exampleFunc());
+	const { data, error } = await awesome(() => createDishType(body));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
