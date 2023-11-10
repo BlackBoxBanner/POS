@@ -20,7 +20,7 @@ export const GET: RequestHandler = async ({ url }) => {
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-	const {} = (await request.json()) as CreateTypeProps;
+	const body = (await request.json()) as CreateTypeProps;
 
 	const { data, error } = await awesome(() => createDishType(body));
 	if (error) return Response.json(error, { status: 400 });
