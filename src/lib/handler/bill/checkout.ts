@@ -1,6 +1,7 @@
 import { supabase } from '$lib/supabase';
 import type { Inserts, Tables } from '$lib/types/schema';
 import { customError } from '$lib/utils/errorHandler';
+import { updateCustomer } from '../customer';
 
 type HistoryOrders = Tables<'history_order'>;
 type History<T, V = HistoryOrders> = (props: T) => Promise<V>;
@@ -33,8 +34,6 @@ export const createHistory: History<CreateHistoryProps> = async ({ menus, custom
 	return data[0];
 };
 
-type HistoryOrders = Tables<'history_order'>;
-
 export type GetHistoryOrder = {
 	id?: string;
 };
@@ -62,3 +61,13 @@ export const getHistory: History<GetHistoryOrder, HistoryOrders[]> = async ({ id
 
 	return data;
 };
+
+export type closeBillProps = {
+	id: string,
+}
+
+export const closeBill = async ({ id }: closeBillProps) => {
+	const date = new Date()
+	return await updateCustomer({ id, check_out_at: date.toISOString() })
+
+}
