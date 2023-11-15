@@ -10,11 +10,10 @@
 	</h1>
 	<div>
 		{#if !data.session}
-			<a class="btn-base variant-filled-secondary" href="/auth/signin">sign in</a>
-			<a class="btn-base variant-filled-secondary" href="/auth/signup">sign up</a>
+			<a class="" href="/auth/signin">sign in</a>
+			<a class="" href="/auth/signup">sign up</a>
 		{:else}
 			<Signout />
 		{/if}
 	</div>
-	<a class="btn variant-filled-secondary" href="/user">user</a>
 </div>

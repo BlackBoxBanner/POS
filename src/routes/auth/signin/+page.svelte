@@ -46,7 +46,7 @@
 		required
 	/>
 	<button
-		class="btn hover:variant-outline-secondary variant-outline-primary ease-in-out duration-150"
+		class="ease-in-out duration-150"
 		type="submit">sign in</button
 	>
 </form>
