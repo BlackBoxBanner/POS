@@ -1,4 +1,4 @@
-import { awesome } from '$lib/utils/awesome';
+import { awesome } from '@dookdiks/utils';
 import type { RequestHandler } from './$types';
 
 const exampleFunc = async () => {
@@ -11,7 +11,7 @@ export const GET: RequestHandler = async ({ url }) => {
 		id: searchParams.get('id') as string
 	};
 
-	const { data, error } = await awesome(() => exampleFunc());
+	const { data, error } = await awesome.async(() => exampleFunc());
 	if (error) return Response.json(error.message, { status: 400 });
 	return Response.json(data);
 };
@@ -19,7 +19,7 @@ export const GET: RequestHandler = async ({ url }) => {
 export const POST: RequestHandler = async ({ request }) => {
 	const {} = (await request.json()) as {};
 
-	const { data, error } = await awesome(() => exampleFunc());
+	const { data, error } = await awesome.async(() => exampleFunc());
 	if (error) return Response.json(error.message, { status: 400 });
 	return Response.json(data);
 };
@@ -27,7 +27,7 @@ export const POST: RequestHandler = async ({ request }) => {
 export const PATCH: RequestHandler = async ({ request }) => {
 	const {} = (await request.json()) as {};
 
-	const { data, error } = await awesome(() => exampleFunc());
+	const { data, error } = await awesome.async(() => exampleFunc());
 	if (error) return Response.json(error.message, { status: 400 });
 	return Response.json(data);
 };
@@ -35,7 +35,7 @@ export const PATCH: RequestHandler = async ({ request }) => {
 export const DELETE: RequestHandler = async ({ request }) => {
 	const {} = (await request.json()) as {};
 
-	const { data, error } = await awesome(() => exampleFunc());
+	const { data, error } = await awesome.async(() => exampleFunc());
 	if (error) return Response.json(error.message, { status: 400 });
 	return Response.json(data);
 };

@@ -1,6 +1,6 @@
 import { supabase, supabaseAdmin } from '$lib/supabase';
-import { customDebug, customError } from '$lib/utils/errorHandler';
 import type { DeleteUser } from '$lib/types/auth';
+import { customDebug, customError } from '@dookdiks/error';
 
 export const deleteUser: DeleteUser = async ({ id, debug }) => {
 	customDebug('Starting check id', debug);

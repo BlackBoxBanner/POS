@@ -45,8 +45,5 @@
 		autocomplete="current-password"
 		required
 	/>
-	<button
-		class="ease-in-out duration-150"
-		type="submit">sign in</button
-	>
+	<button class="ease-in-out duration-150" type="submit">sign in</button>
 </form>

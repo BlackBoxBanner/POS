@@ -72,8 +72,5 @@
 		autocomplete="current-password"
 		required
 	/>
-	<button
-		class="ease-in-out duration-150"
-		type="submit">sign up</button
-	>
+	<button class="ease-in-out duration-150" type="submit">sign up</button>
 </form>

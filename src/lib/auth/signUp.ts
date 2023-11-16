@@ -1,5 +1,5 @@
 import { supabase, supabaseAdmin } from '$lib/supabase';
-import { customDebug, customError } from '$lib/utils/errorHandler';
+import { customDebug, customError } from '@dookdiks/error';
 import type { SignUp } from '$lib/types/auth';
 
 export const signUp: SignUp = async ({

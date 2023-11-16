@@ -1,6 +1,6 @@
 import { supabase } from '$lib/supabase';
 import type { Inserts, Tables, Updates } from '$lib/types/schema';
-import { customError } from '$lib/utils/errorHandler';
+import { customError } from '@dookdiks/error';
 import { getMenu } from '../menu';
 
 type Orders<T, V = Tables<'orders'>> = (props: T) => Promise<V>;

@@ -1,21 +1,18 @@
-import type { Inserts ,Tables, Updates } from '$lib/types/schema';
-import { customError } from '$lib/utils/errorHandler';
+import type { Inserts, Tables, Updates } from '$lib/types/schema';
+import { customError } from '@dookdiks/error';
 import { supabase } from '$lib/supabase';
-
-
 
 type Type<T, V = Tables<'dish_types'>> = (props: T) => Promise<V>;
 
-export type CreateTypeProps = Pick<Inserts<'dish_types'>, 'name'>
+export type CreateTypeProps = Pick<Inserts<'dish_types'>, 'name'>;
 
 export const createDishType: Type<CreateTypeProps> = async (props) => {
-	
-	if (!props.name) 
+	if (!props.name)
 		throw customError({
 			id: 'dish_types',
-			message: 'Please provide a name'	
-		})
-	
+			message: 'Please provide a name'
+		});
+
 	const { data, error } = await supabase.from('dish_types').insert(props).select();
 	if (error)
 		throw customError({
@@ -33,7 +30,6 @@ export const getDishType: Type<GetTypeProps, Tables<'dish_types'>[]> = async ({ 
 	let query = supabase.from('dish_types').select('*');
 
 	if (id) query = query.eq('id', id);
-	
 
 	const { data, error } = await query;
 
@@ -54,8 +50,7 @@ export const getDishType: Type<GetTypeProps, Tables<'dish_types'>[]> = async ({ 
 	return data;
 };
 
-
-export type UpdateTypeProps = Pick<Updates<'dish_types'>,  'id' | 'name'>;
+export type UpdateTypeProps = Pick<Updates<'dish_types'>, 'id' | 'name'>;
 
 export const updateDishType: Type<UpdateTypeProps> = async (props) => {
 	if (!props.id)
@@ -64,8 +59,12 @@ export const updateDishType: Type<UpdateTypeProps> = async (props) => {
 			message: 'ID missing'
 		});
 
-	console.log(props)
-	const { data, error } = await supabase.from('dish_types').update(props).eq('id', props.id).select();
+	console.log(props);
+	const { data, error } = await supabase
+		.from('dish_types')
+		.update(props)
+		.eq('id', props.id)
+		.select();
 
 	if (error)
 		throw customError({
