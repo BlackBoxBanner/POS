@@ -8,7 +8,7 @@ import {
 	type UpdateOrderProps,
 	updateOrder
 } from '$lib/handler/order';
-import { awesome } from '$lib/utils/awesome';
+import { awesome } from '@dookdiks/utils';
 import type { RequestHandler } from './$types';
 
 const exampleFunc = async () => {
@@ -20,7 +20,7 @@ export const GET: RequestHandler = async ({ url }) => {
 	const id = params.get('id') as GetOrdersProps['id'];
 	const table_id = params.get('id') as GetOrdersProps['table_id'];
 
-	const { data, error } = await awesome(() => getOrders({ id, table_id }));
+	const { data, error } = await awesome.async(() => getOrders({ id, table_id }));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
@@ -28,7 +28,7 @@ export const GET: RequestHandler = async ({ url }) => {
 export const POST: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as Omit<CreateOrderProps, 'price'>;
 
-	const { data, error } = await awesome(() => createOrder(body));
+	const { data, error } = await awesome.async(() => createOrder(body));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
@@ -36,14 +36,14 @@ export const POST: RequestHandler = async ({ request }) => {
 export const PATCH: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as UpdateOrderProps;
 
-	const { data, error } = await awesome(() => updateOrder(body));
+	const { data, error } = await awesome.async(() => updateOrder(body));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
 
 export const DELETE: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as DeleteOrderProps;
-	const { data, error } = await awesome(() => deleteOrder(body));
+	const { data, error } = await awesome.async(() => deleteOrder(body));
 	if (error) Response.json(error, { status: 400 });
 	return Response.json(data);
 };

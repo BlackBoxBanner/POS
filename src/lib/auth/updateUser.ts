@@ -1,5 +1,5 @@
 import { supabase } from '$lib/supabase';
-import { customDebug, customError } from '$lib/utils/errorHandler';
+import { customDebug, customError } from '@dookdiks/error';
 import type { UpdateUser } from '$lib/types/auth';
 
 export const updateUser: UpdateUser = async ({ name, debug }) => {

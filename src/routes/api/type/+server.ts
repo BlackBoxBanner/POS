@@ -7,7 +7,7 @@ import {
 	type DeleteTypeProps,
 	deleteDishType
 } from '$lib/handler/type';
-import { awesome } from '$lib/utils/awesome';
+import { awesome } from '@dookdiks/utils';
 import type { RequestHandler } from './$types';
 
 const exampleFunc = async () => {
@@ -18,7 +18,7 @@ export const GET: RequestHandler = async ({ url }) => {
 	const params = url.searchParams;
 	const id = params.get('id') as string;
 
-	const { data, error } = await awesome(() => getDishType({id}));
+	const { data, error } = await awesome.async(() => getDishType({ id }));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
@@ -26,7 +26,7 @@ export const GET: RequestHandler = async ({ url }) => {
 export const POST: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as CreateTypeProps;
 
-	const { data, error } = await awesome(() => createDishType(body));
+	const { data, error } = await awesome.async(() => createDishType(body));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
@@ -34,7 +34,7 @@ export const POST: RequestHandler = async ({ request }) => {
 export const PATCH: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as UpdateTypeProps;
 
-	const { data, error } = await awesome(() => updateDishType(body));
+	const { data, error } = await awesome.async(() => updateDishType(body));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
@@ -42,8 +42,7 @@ export const PATCH: RequestHandler = async ({ request }) => {
 export const DELETE: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as DeleteTypeProps;
 
-	const { data, error } = await awesome(() => deleteDishType(body));
+	const { data, error } = await awesome.async(() => deleteDishType(body));
 	if (error) return Response.json(error, { status: 400 });
 	return Response.json(data);
 };
-

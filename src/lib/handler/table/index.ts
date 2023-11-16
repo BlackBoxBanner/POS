@@ -1,6 +1,6 @@
 import { supabase } from '$lib/supabase';
 import type { Inserts, Tables, Updates } from '$lib/types/schema';
-import { customDebug, customError } from '$lib/utils/errorHandler';
+import { customDebug, customError } from '@dookdiks/error';
 
 export type CreateTableProps = Inserts<'tables'>;
 type CreateTable = (props: CreateTableProps) => Promise<Tables<'tables'>>;

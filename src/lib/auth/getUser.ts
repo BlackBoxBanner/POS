@@ -1,6 +1,6 @@
 import { supabase } from '$lib/supabase';
-import { customDebug, customError } from '$lib/utils/errorHandler';
 import type { GetUser } from '$lib/types/auth';
+import { customDebug, customError } from '@dookdiks/error';
 
 export const getUser: GetUser = async ({ id, debug }) => {
 	customDebug('Checking ID', debug);

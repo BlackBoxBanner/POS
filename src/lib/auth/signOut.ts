@@ -1,6 +1,6 @@
 import { supabase } from '$lib/supabase';
-import { customDebug, customError } from '$lib/utils/errorHandler';
 import type { SignOut } from '$lib/types/auth';
+import { customDebug, customError } from '@dookdiks/error';
 
 export const signOut: SignOut = async ({ debug }) => {
 	customDebug('Starting signout', debug);
