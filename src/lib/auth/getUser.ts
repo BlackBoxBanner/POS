@@ -7,8 +7,8 @@ export const getUser: GetUser = async ({ id, email, debug }) => {
 	const employee = id
 		? supabase.from('employees').select('*').eq('id', id)
 		: email
-			? supabase.from('employees').select('*').eq('email', email)
-			: supabase.from('employees').select('*');
+		? supabase.from('employees').select('*').eq('email', email)
+		: supabase.from('employees').select('*');
 
 	customDebug('Getting data', debug);
 	let { data, error } = await employee;

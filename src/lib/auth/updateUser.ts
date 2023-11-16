@@ -24,7 +24,7 @@ export const updateUser: UpdateUser = async ({ name, debug, email }) => {
 		.update({
 			name: name
 		})
-		.eq(email ? "email" : 'id', email ? email : session?.user.id)
+		.eq(email ? 'email' : 'id', email ? email : session?.user.id)
 		.select();
 
 	if (databaseError) throw customError({ id: 'name', message: databaseError.message });
