@@ -6,8 +6,9 @@ import type { RequestHandler } from './$types';
 export const GET: RequestHandler = async ({ url }) => {
 	const params = url.searchParams;
 	const id = params.get('id');
+	const email = params.get('email');
 
-	const { data, error } = await awesome.async(() => getUser({ id }));
+	const { data, error } = await awesome.async(() => getUser({ id, email }));
 	if (error) return Response.json(error.message, { status: 400 });
 	return Response.json(data);
 };

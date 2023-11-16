@@ -29,7 +29,8 @@ type DeleteUserProps = {
 type DeleteUser = (props: DeleteUserProps) => Promise<Tables<'employees'>>;
 
 type GetUserProps = {
-	id: string | null;
+	id?: string | null;
+	email?: string | null;
 	debug?: boolean;
 };
 type GetUser = (props: GetUserProps) => Promise<Tables<'employees'>[] | null>;
