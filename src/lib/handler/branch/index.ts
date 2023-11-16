@@ -1,6 +1,6 @@
 import { supabase } from '$lib/supabase';
 import type { Inserts, Tables, Updates } from '$lib/types/schema';
-import { customError, customDebug } from '$lib/utils/errorHandler';
+import { customDebug, customError } from '@dookdiks/error';
 
 export type CreateBranchProps = Inserts<'branches'> & {
 	debug?: boolean;

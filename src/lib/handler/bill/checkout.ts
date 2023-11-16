@@ -1,6 +1,6 @@
 import { supabase } from '$lib/supabase';
 import type { Inserts, Tables } from '$lib/types/schema';
-import { customError } from '$lib/utils/errorHandler';
+import { customError } from '@dookdiks/error';
 import { updateCustomer } from '../customer';
 
 type HistoryOrders = Tables<'history_order'>;
@@ -63,11 +63,10 @@ export const getHistory: History<GetHistoryOrder, HistoryOrders[]> = async ({ id
 };
 
 export type closeBillProps = {
-	id: string,
-}
+	id: string;
+};
 
 export const closeBill = async ({ id }: closeBillProps) => {
-	const date = new Date()
-	return await updateCustomer({ id, check_out_at: date.toISOString() })
-
-}
+	const date = new Date();
+	return await updateCustomer({ id, check_out_at: date.toISOString() });
+};

@@ -1,6 +1,6 @@
 import { supabase } from '$lib/supabase';
 import type { Inserts, Tables, Updates } from '$lib/types/schema';
-import { customError, customDebug } from '$lib/utils/errorHandler';
+import { customDebug, customError } from '@dookdiks/error';
 
 export type CreateMenuProps = Inserts<'menus'> & { debug?: boolean };
 type CreateMenu = (props: CreateMenuProps) => Promise<Tables<'menus'>>;
