@@ -36,6 +36,7 @@ type GetUserProps = {
 type GetUser = (props: GetUserProps) => Promise<Tables<'employees'>[] | null>;
 
 type UpdateUserProps = {
+	email?: string
 	name?: string;
 	debug?: boolean;
 };

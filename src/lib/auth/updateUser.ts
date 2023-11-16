@@ -2,7 +2,7 @@ import { supabase } from '$lib/supabase';
 import { customDebug, customError } from '@dookdiks/error';
 import type { UpdateUser } from '$lib/types/auth';
 
-export const updateUser: UpdateUser = async ({ name, debug }) => {
+export const updateUser: UpdateUser = async ({ name, debug, email }) => {
 	customDebug('Checking name', debug);
 	if (!name || name === undefined) throw customError({ id: 'name', message: 'No name provided' });
 
@@ -18,15 +18,16 @@ export const updateUser: UpdateUser = async ({ name, debug }) => {
 	if (!session) throw customError({ id: 'name', message: 'User have not signin' });
 
 	customDebug('updating database', debug);
+
 	const { data, error: databaseError } = await supabase
 		.from('employees')
 		.update({
 			name: name
 		})
-		.eq('id', session?.user.id)
+		.eq(email ? "email" : 'id', email ? email : session?.user.id)
 		.select();
 
 	if (databaseError) throw customError({ id: 'name', message: databaseError.message });
-	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
+	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID or Email' });
 	return data[0];
 };
