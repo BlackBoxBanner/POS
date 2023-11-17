@@ -4,6 +4,7 @@
 	export let value: string;
 	export let error = '';
 	export let emailNotValid = 'Email is not valid';
+	export let label = 'Email';
 
 	function checkEmail(str: string) {
 		return str && !str.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
@@ -20,7 +21,7 @@
 </script>
 
 <div class={cn('flex flex-col min-w-[23rem] relative')}>
-	<label for="email-input" class={cn('text-base font-semibold w-full')}>Email</label>
+	<label for="email-input" class={cn('text-base font-semibold w-full')}>{label}</label>
 	<input
 		bind:value
 		type="email"
@@ -28,12 +29,10 @@
 		on:input={handleInput}
 	/>
 	<p class={cn('font-light text-sm text-crayola-base h-4')}>
-		{#if isEmail || isError}
-			{#if isError}
-				{error}
-			{:else}
-				{emailNotValid}
-			{/if}
+		{#if (isEmail || isError) && !isError}
+			{emailNotValid}
+		{:else}
+			{error}
 		{/if}
 	</p>
 </div>
