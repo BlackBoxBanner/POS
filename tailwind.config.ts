@@ -8,7 +8,7 @@ const config = {
 			sans: ['Outfit', 'sans-serif']
 		},
 		colors: {
-			transparent: 'background-color: transparent',
+			transparent: 'transparent',
 			raisinblack: {
 				100: '#131416',
 				200: '#161719',
