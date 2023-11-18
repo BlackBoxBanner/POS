@@ -59,15 +59,9 @@
 			<span class="mb-3 text-xs text-left">สินค้า</span>
 			<span class="mb-3 text-xs text-right">จำนวน</span>
 			<span class="mb-3 text-xs text-right">ราคา</span>
-			<MenuItems {productAmount} {productName} {productPrice} />
-			<MenuItems {productAmount} {productName} {productPrice} />
-			<MenuItems {productAmount} {productName} {productPrice} />
-			<MenuItems {productAmount} {productName} {productPrice} />
-			<MenuItems {productAmount} {productName} {productPrice} />
-			<MenuItems {productAmount} {productName} {productPrice} />
-			<MenuItems {productAmount} {productName} {productPrice} />
-			<MenuItems {productAmount} {productName} {productPrice} />
-			<MenuItems {productAmount} {productName} {productPrice} />
+			{#each [] as order}
+				<MenuItems {productAmount} {productName} {productPrice} />
+			{/each}
 		</div>
 		<span>-----------------------------</span>
 		<!-- Total/Payment Detail -->
