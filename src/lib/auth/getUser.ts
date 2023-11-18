@@ -1,11 +1,13 @@
 import { supabase } from '$lib/supabase';
-import { customDebug, customError } from '$lib/utils/errorHandler';
 import type { GetUser } from '$lib/types/auth';
+import { customDebug, customError } from '@dookdiks/error';
 
-export const getUser: GetUser = async ({ id, debug }) => {
+export const getUser: GetUser = async ({ id, email, debug }) => {
 	customDebug('Checking ID', debug);
 	const employee = id
 		? supabase.from('employees').select('*').eq('id', id)
+		: email
+		? supabase.from('employees').select('*').eq('email', email)
 		: supabase.from('employees').select('*');
 
 	customDebug('Getting data', debug);

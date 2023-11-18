@@ -1,5 +1,5 @@
 import { supabase, supabaseAdmin } from '$lib/supabase';
-import { customDebug, customError } from '$lib/utils/errorHandler';
+import { customDebug, customError } from '@dookdiks/error';
 import type { SignUp } from '$lib/types/auth';
 
 export const signUp: SignUp = async ({
@@ -68,5 +68,6 @@ export const signUp: SignUp = async ({
 
 	customDebug('Checking database error', debug);
 	if (databaseError) throw new Error(databaseError.message);
+	if (databaseReturn.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return databaseReturn[0];
 };

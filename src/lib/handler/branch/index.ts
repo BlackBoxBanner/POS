@@ -1,6 +1,6 @@
 import { supabase } from '$lib/supabase';
 import type { Inserts, Tables, Updates } from '$lib/types/schema';
-import { customError, customDebug } from '$lib/utils/errorHandler';
+import { customDebug, customError } from '@dookdiks/error';
 
 export type CreateBranchProps = Inserts<'branches'> & {
 	debug?: boolean;
@@ -27,6 +27,7 @@ export const createBranch: CreateBranch = async ({ branch_name, phone_number, de
 
 	customDebug('Check error', debug);
 	if (branchError) throw customError({ id: 'branch_name', message: branchError.message });
+	if (branchData.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return branchData[0];
 };
 
@@ -60,6 +61,7 @@ export const deleteBranch: DeleteBranch = async ({ id, debug }) => {
 
 	customDebug('Check error', debug);
 	if (error) throw customError({ id: 'id', message: error.message });
+	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return data[0];
 };
 
@@ -77,5 +79,6 @@ export const updateBranch: UpdateBranch = async ({ id, debug, ...props }) => {
 
 	customDebug('Check error', debug);
 	if (error) throw customError({ id: 'id', message: error.message });
+	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return data[0];
 };
