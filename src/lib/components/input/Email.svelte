@@ -26,7 +26,10 @@
 	<input
 		bind:value
 		type="email"
-		class={cn('border-b font-light active:no-underline w-full focus:outline-none', ...inputClass)}
+		class={cn(
+			'border-b font-light active:no-underline w-full focus:outline-none bg-transparent',
+			...inputClass
+		)}
 		on:input={handleInput}
 	/>
 	<p class={cn('font-light text-sm text-crayola-base h-4')}>

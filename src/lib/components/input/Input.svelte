@@ -3,31 +3,21 @@
 
 	export let value: string;
 	export let error = '';
-	export let label = 'Number';
+	export let label = 'Input';
 	export let inputClass = '';
-
-	$: value = value && value.replace(/[^0-9.]/g, '');
-
-	function handleInput() {
-		if (error) {
-			error = '';
-		}
-	}
 </script>
 
 <div {...$$restProps} class={cn('flex flex-col min-w-[23rem] relative')}>
 	<label for="email-input" class={cn('text-base font-semibold w-full')}>{label}</label>
-	<div class={cn('relative')}>
-		<input
-			bind:value
-			type="text"
-			class={cn(
-				'border-b font-light active:no-underline w-full focus:outline-none bg-transparent',
-				...inputClass
-			)}
-			on:input={handleInput}
-		/>
-	</div>
+	<input
+		bind:value
+		type="email"
+		class={cn(
+			'border-b font-light active:no-underline w-full focus:outline-none bg-transparent',
+			...inputClass
+		)}
+		on:input
+	/>
 	<p class={cn('font-light text-sm text-crayola-base h-4')}>
 		{#if error}
 			{error}

@@ -42,7 +42,10 @@
 		<input
 			bind:value
 			{...{ type }}
-			class={cn('border-b font-light active:no-underline w-full focus:outline-none', ...inputClass)}
+			class={cn(
+				'border-b font-light active:no-underline w-full focus:outline-none bg-transparent',
+				...inputClass
+			)}
 			on:input={handleInput}
 		/>
 	</div>

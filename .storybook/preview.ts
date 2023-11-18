@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/svelte';
-import "../src/app.postcss"
+import '../src/app.postcss';
+
+import { withThemeByClassName } from '@storybook/addon-themes';
 
 const preview: Preview = {
 	parameters: {
@@ -10,7 +12,18 @@ const preview: Preview = {
 				date: /Date$/i
 			}
 		}
-	}
+	},
+
+	decorators: [
+		withThemeByClassName({
+			themes: {
+				// nameOfTheme: 'classNameForTheme',
+				light: '',
+				dark: 'dark'
+			},
+			defaultTheme: 'light'
+		})
+	]
 };
 
 export default preview;
