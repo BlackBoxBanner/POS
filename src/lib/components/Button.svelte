@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { cn } from '@dookdiks/utils';
-	import type { Action } from 'svelte/action';
 
 	export let ref: HTMLButtonElement | null = null;
 
