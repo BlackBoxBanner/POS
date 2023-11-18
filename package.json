@@ -14,7 +14,8 @@
 		"lint": "prettier --plugin-search-dir . --check .",
 		"format": "prettier --plugin-search-dir . --write .",
 		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build"
+		"build-storybook": "storybook build",
+		"serve-storybook": "npx serve storybook-static"
 	},
 	"devDependencies": {
 		"@iconify/icons-ion": "^1.2.10",
