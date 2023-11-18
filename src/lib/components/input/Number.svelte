@@ -1,20 +1,11 @@
 <script lang="ts">
 	import { cn } from '@dookdiks/utils';
 
-	// NOTE - input value
 	export let value: string;
-
-	// NOTE - error handler
 	export let error = '';
 	export let passwordRequirements = 'Value is not a number';
-
-	// NOTE - Label
 	export let label = 'Number';
-
-	// NOTE - check for strong password
 	export let check = false;
-
-	// NOTE - input styles
 	export let inputClass = '';
 
 	$: isNumber = checkNumber(value);
@@ -33,7 +24,7 @@
 	}
 </script>
 
-<div class={cn('flex flex-col min-w-[23rem] relative')} {...$$restProps}>
+<div {...$$restProps} class={cn('flex flex-col min-w-[23rem] relative')}>
 	<label for="email-input" class={cn('text-base font-semibold w-full')}>{label}</label>
 	<div class={cn('relative')}>
 		<input
