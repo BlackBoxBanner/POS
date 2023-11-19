@@ -6,6 +6,8 @@
 	type ButtonSize = 'small' | 'medium' | 'large';
 	export let size: ButtonSize = 'medium';
 
+	export let label: string = '';
+
 	$: btnSize =
 		size === 'small'
 			? 'text-xs py-2 px-4'
@@ -32,5 +34,9 @@
 		$$restProps.class
 	)}
 >
-	<slot />
+	{#if label}
+		{label}
+	{:else}
+		<slot />
+	{/if}
 </button>
