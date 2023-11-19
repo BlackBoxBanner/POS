@@ -34,11 +34,6 @@
 <div class={cn('flex flex-col min-w-[23rem] relative')} {...$$restProps}>
 	<label for="email-input" class={cn('text-base font-semibold w-full')}>{label}</label>
 	<div class={cn('relative')}>
-		{#if review}
-			<button class={cn('absolute right-1 h-full flex items-center')} on:click={onClickHandler}>
-				<Icon icon={type == 'password' ? eyeOutline : eyeOffOutline} class={cn('scale-125')} />
-			</button>
-		{/if}
 		<input
 			bind:value
 			{...{ type }}
@@ -56,4 +51,9 @@
 			{error}
 		{/if}
 	</p>
+	{#if review}
+		<button class={cn('absolute right-1 h-full flex items-center')} on:click={onClickHandler}>
+			<Icon icon={type == 'password' ? eyeOutline : eyeOffOutline} class={cn('scale-125')} />
+		</button>
+	{/if}
 </div>
