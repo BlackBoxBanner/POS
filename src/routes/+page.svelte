@@ -7,9 +7,9 @@
 
 	export let data: PageData;
 
-function signOutHandler(){
-	axiosInstant("/api/auth/signout",{method:"POST"})
-}
+	function signOutHandler() {
+		axiosInstant('/api/auth/signout', { method: 'POST' });
+	}
 </script>
 
 <div class="bg-ivory-base font-exo h-full flex justify-center items-center flex-col gap-4">
