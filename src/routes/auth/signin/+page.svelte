@@ -1,13 +1,10 @@
 <script lang="ts">
 	import Logo from '$lib/components/logo.svelte';
-	import type { PageData } from './$types';
 	import Email from '$lib/components/input/Email.svelte';
 	import Password from '$lib/components/input/Password.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { axiosInstant } from '$lib/axios';
+	import { customAxios } from '$lib/axios';
 	import { cn } from '@dookdiks/utils';
-	import type { AxiosError } from 'axios';
-	import type { ErrorType } from '@dookdiks/error';
 
 	let email = '';
 	let password = '';
@@ -22,15 +19,15 @@
 
 	async function loginHandler() {
 		resetError();
-		try {
-			const axiosData = await axiosInstant.post('http://localhost:5173/api/auth/signin', {
+		const { error } = await customAxios('/api/auth/signin', {
+			method: 'POST',
+			data: {
 				email,
 				password
-			});
-			return axiosData.data;
-		} catch (err) {
-			const error = (err as AxiosError).response?.data as ErrorType;
+			}
+		});
 
+		if (error) {
 			if (error.id === 'email') emailError = error.message;
 			if (error.id === 'password') passwordError = error.message;
 		}
