@@ -19,7 +19,7 @@ export const getImageUrlHandler: GetImageUrlHandle = async (path) => {
 
 export type UploadImageHandler = (name: string, file: File) => Promise<string>
 
-export const uploadImageHandler = async (name: string, file: File) => {
+export const uploadImageHandler = async (name: string, file: File | string) => {
   const bucket = getFoodBucket()
   const { data, error } = await bucket.upload(name, file)
   if (error) throw customError({ id: "image", message: error.message })
@@ -30,6 +30,6 @@ export const getImageUrl = async (path: string) => {
   return awesome.async(() => getImageUrlHandler(path))
 }
 
-export const postImageUrl = async (name: string, file: File) => {
+export const postImageUrl = async (name: string, file: File | string) => {
   return awesome.async(() => uploadImageHandler(name, file))
 }

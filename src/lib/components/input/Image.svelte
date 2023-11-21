@@ -2,6 +2,7 @@
 	import { cn } from '@dookdiks/utils';
 	import Icon from '@iconify/svelte';
 	import addIcon from '@iconify/icons-ion/add';
+	import { getImage } from '$lib/utils/image';
 
 	export let files: FileList;
 	export let id: string;
@@ -9,9 +10,6 @@
 
 	let image: File | null;
 
-	function getImage(filesList: FileList) {
-		return filesList && filesList.length != 0 ? files[0] : null;
-	}
 	$: image = getImage(files);
 </script>
 
