@@ -1,8 +1,9 @@
 {
 	"name": "pos",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"private": true,
 	"scripts": {
+		"postinstall":"npm run build-storybook && npm run test",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
