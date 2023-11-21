@@ -3,6 +3,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
+		"install": "npm install",
+		"postinstall":"npm run build-storybook && npm run test",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
