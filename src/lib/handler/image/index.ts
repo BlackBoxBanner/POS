@@ -1,9 +1,9 @@
-import { supabase } from '$lib/supabase';
+import { supabaseAdmin } from '$lib/supabase';
 import { customError } from '@dookdiks/error';
 import { awesome } from '@dookdiks/utils';
 
 const getFoodBucket = () => {
-  return supabase.storage.from("food")
+  return supabaseAdmin.storage.from("food")
 }
 
 export type GetImageUrlHandle = (path: string) => Promise<string>
@@ -19,9 +19,10 @@ export const getImageUrlHandler: GetImageUrlHandle = async (path) => {
 
 export type UploadImageHandler = (name: string, file: File) => Promise<string>
 
-export const uploadImageHandler = async (name: string, file: File | string) => {
+export const uploadImageHandler = async (name: string, file: File) => {
   const bucket = getFoodBucket()
   const { data, error } = await bucket.upload(name, file)
+  
   if (error) throw customError({ id: "image", message: error.message })
   return data.path
 }
@@ -30,6 +31,6 @@ export const getImageUrl = async (path: string) => {
   return awesome.async(() => getImageUrlHandler(path))
 }
 
-export const postImageUrl = async (name: string, file: File | string) => {
+export const postImageUrl = async (name: string, file: File) => {
   return awesome.async(() => uploadImageHandler(name, file))
 }
