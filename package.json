@@ -18,6 +18,7 @@
 		"serve-storybook": "npx serve storybook-static"
 	},
 	"devDependencies": {
+		"@faker-js/faker": "^8.3.1",
 		"@iconify/icons-ion": "^1.2.10",
 		"@iconify/svelte": "^3.1.4",
 		"@playwright/test": "^1.28.1",
