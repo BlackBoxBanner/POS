@@ -65,8 +65,8 @@ describe('Branch Unit Test', () => {
         })
     })
 
-    describe('DELETE Branch', () => {
-        test('Successful DELETE  Branch', async () => {
+    describe('DELETE Table', () => {
+        test('Successful DELETE  Table', async () => {
             const {data, error}  = await awesome.async(()=>deleteTable(deleteTableProps))
             
             expect(data).toBeDefined()
