@@ -7,8 +7,11 @@
 	import type { AxiosError } from 'axios';
 	import type { PageData } from './$types';
 	import { cn } from '@dookdiks/utils';
+	import Topnav from '$lib/components/nav/Topnav.svelte';
 
 	export let data: PageData;
+
+	console.log(data.dishTypeArr);
 
 	let errorImage: string | undefined;
 
@@ -44,11 +47,14 @@
 	}
 </script>
 
-<div class="bg-ivory-base font-exo h-full flex justify-center items-center flex-col gap-4">
-	<Logo class={cn('scale-75')} />
-	<Button on:click={signOutHandler}>Sign out</Button>
-	<form on:submit={submitHandler} class={cn('flex flex-col justify-center items-center')}>
-		<Image bind:files id="image" error={errorImage} />
-		<Button type="submit" size="small">upload</Button>
-	</form>
+<div class={cn('bg-milk-base h-full overflow-auto')}>
+	<Topnav dishType={data.dishTypeArr} />
+	<div class={cn('h-full flex justify-center items-center flex-col gap-4')}>
+		<Logo class={cn('scale-75')} />
+		<Button on:click={signOutHandler}>Sign out</Button>
+		<form on:submit={submitHandler} class={cn('flex flex-col justify-center items-center')}>
+			<Image bind:files id="image" error={errorImage} />
+			<Button type="submit" size="small">upload</Button>
+		</form>
+	</div>
 </div>
