@@ -8,10 +8,9 @@
 	import type { PageData } from './$types';
 	import { cn } from '@dookdiks/utils';
 	import Topnav from '$lib/components/nav/Topnav.svelte';
+	import Card from '$lib/components/card/Card.svelte';
 
 	export let data: PageData;
-
-	console.log(data.dishTypeArr);
 
 	let errorImage: string | undefined;
 
@@ -47,6 +46,9 @@
 	}
 </script>
 
+<div class={cn('h-screen flex gap-4')}>
+<Card image="http://localhost:8000/storage/v1/object/public/food/Zootopia%20Wallpaper%20copy.jpg" name="name" price="34" />
+</div>
 <div class={cn('bg-milk-base h-full overflow-auto')}>
 	<Topnav dishType={data.dishTypeArr} />
 	<div class={cn('h-full flex justify-center items-center flex-col gap-4')}>
@@ -54,7 +56,10 @@
 		<Button on:click={signOutHandler}>Sign out</Button>
 		<form on:submit={submitHandler} class={cn('flex flex-col justify-center items-center')}>
 			<Image bind:files id="image" error={errorImage} />
-			<Button type="submit" size="small">upload</Button>
+			<div>
+
+				<Button type="submit" size="small">upload</Button>
+			</div>
 		</form>
 	</div>
 </div>
