@@ -8,8 +8,7 @@ const meta = {
 	title: 'Input/Image',
 	component: Image,
 	tags: ['autodocs'],
-	argTypes: {
-	}
+	argTypes: {}
 } satisfies Meta<Image>;
 
 export default meta;
@@ -18,14 +17,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	args: {
 		files: fileList,
-		id: "image"
+		id: 'image'
 	}
 };
 
 export const Error: Story = {
 	args: {
 		files: fileList,
-		id: "image",
-		error: "Custom error."
+		id: 'image',
+		error: 'Custom error.'
 	}
 };
