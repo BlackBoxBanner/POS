@@ -291,6 +291,7 @@ export interface Database {
 					created_at: string;
 					employee_id: string;
 					id: string;
+					seat: number;
 					table_id: string;
 					take_away: boolean;
 				};
@@ -300,6 +301,7 @@ export interface Database {
 					created_at?: string;
 					employee_id: string;
 					id?: string;
+					seat: number;
 					table_id: string;
 					take_away?: boolean;
 				};
@@ -309,6 +311,7 @@ export interface Database {
 					created_at?: string;
 					employee_id?: string;
 					id?: string;
+					seat?: number;
 					table_id?: string;
 					take_away?: boolean;
 				};
@@ -357,6 +360,7 @@ export interface Database {
 					created_at: string;
 					email: string;
 					id: string;
+					image: string | null;
 					name: string;
 				};
 				Insert: {
@@ -364,6 +368,7 @@ export interface Database {
 					created_at?: string;
 					email: string;
 					id?: string;
+					image?: string | null;
 					name: string;
 				};
 				Update: {
@@ -371,6 +376,7 @@ export interface Database {
 					created_at?: string;
 					email?: string;
 					id?: string;
+					image?: string | null;
 					name?: string;
 				};
 				Relationships: [

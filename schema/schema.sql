@@ -7,7 +7,7 @@ create table if not exists public.branches (
   constraint addresses_branch_name_key unique (branch_name)
 ) tablespace pg_default;
 
-create table public.tables (
+create table if not exists public.tables (
   id uuid not null default gen_random_uuid (),
   seat smallint not null,
   created_at timestamp with time zone not null default now(),
@@ -16,12 +16,13 @@ create table public.tables (
   constraint tables_table_number_key unique (table_number)
 ) tablespace pg_default;
 
-create table public.employees (
+create table if not exists public.employees (
   id uuid not null default gen_random_uuid (),
   email character varying not null,
   name character varying not null,
   created_at timestamp with time zone not null default now(),
   branch_id uuid null,
+  image text null,
   constraint employees_pkey primary key (id),
   constraint employees_email_key unique (email),
   constraint employees_branch_id_fkey foreign key (branch_id) references branches (id) on delete cascade
@@ -43,10 +44,11 @@ create table if not exists public.customers (
   branch_id uuid not null,
   take_away boolean not null default false,
   check_out_at timestamp with time zone null,
+  seat integer not null,
   constraint customers_pkey primary key (id),
+  constraint customers_branch_id_fkey foreign key (branch_id) references branches (id) on update cascade,
   constraint customers_table_id_fkey foreign key (table_id) references tables (id) on update cascade,
-  constraint customers_employee_id_fkey foreign key (employee_id) references employees (id) on update cascade,
-  constraint customers_branch_id_fkey foreign key (branch_id) references branches (id) on update cascade
+  constraint customers_employee_id_fkey foreign key (employee_id) references employees (id) on update cascade
 ) tablespace pg_default;
 
 create table if not exists public.menus (

@@ -8,17 +8,24 @@
 </script>
 
 <div class={cn('flex flex-col min-w-[23rem] relative')} {...$$restProps}>
-	<label for="email-input" class={cn('text-base font-semibold w-full')}>{label}</label>
+	<label
+		for="email-input"
+		class={cn(
+			'text-base border-eerie-black-base text-eerie-black-base font-semibold w-full',
+			error && 'border-error text-error'
+		)}>{label}</label
+	>
 	<input
 		bind:value
-		type="email"
+		type="text"
 		class={cn(
-			'border-b font-light active:no-underline w-full focus:outline-none bg-transparent',
+			'border-b border-eerie-black-base text-eerie-black-base font-light active:no-underline w-full focus:outline-none bg-transparent',
+			error && 'border-error text-error',
 			inputClass
 		)}
 		on:input
 	/>
-	<p class={cn('font-light text-sm text-crayola-base h-4')}>
+	<p class={cn('font-light text-sm text-error h-4')}>
 		{#if error}
 			{error}
 		{/if}
