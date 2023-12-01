@@ -96,7 +96,9 @@ const config = {
 				700: '#144a66',
 				800: '#12415a',
 				900: '#0f384d'
-			}
+			},
+			error: '#DC241F',
+			success: '#38B13D'
 		},
 		extend: {}
 	}

@@ -51,7 +51,7 @@ export const signUp: SignUp = async ({
 	const { data, error: registerError } = await register();
 
 	customDebug('Checking register error', debug);
-	if (registerError) throw customError({ id: 'email', message: registerError.message });
+	if (registerError) throw customError({ id: 'password', message: registerError.message });
 
 	customDebug('Checking register successful', debug);
 	if (!data.user) throw customError({ id: 'email', message: 'No user return' });

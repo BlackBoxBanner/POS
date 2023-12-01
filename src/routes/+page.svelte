@@ -1,62 +1,47 @@
 <script lang="ts">
-	import { axiosInstant } from '$lib/axios';
-	import Button from '$lib/components/Button.svelte';
-	import Image from '$lib/components/input/Image.svelte';
 	import Logo from '$lib/components/logo.svelte';
-	import { getImage, toBase64 } from '$lib/utils/image';
-	import type { AxiosError } from 'axios';
-	import type { PageData } from './$types';
+	import Email from '$lib/components/input/Email.svelte';
+	import Password from '$lib/components/input/Password.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import { customAxios } from '$lib/axios';
 	import { cn } from '@dookdiks/utils';
-	import Sidenav from '$lib/components/navbar/Sidenav.svelte';
+	import { goto } from '$app/navigation';
 
-	export let data: PageData;
-	const { session, dishTypeArr, empolyee } = data;
+	let email = '';
+	let password = '';
 
-	let errorImage: string | undefined;
+	let emailError = '';
+	let passwordError = '';
 
-	let emptyFileList: FileList;
-	let files: FileList;
-
-	function signOutHandler() {
-		axiosInstant('/api/auth/signout', { method: 'POST' });
+	function resetError() {
+		emailError = '';
+		passwordError = '';
 	}
 
-	function resetImage() {
-		files = emptyFileList;
-	}
+	async function loginHandler() {
+		resetError();
+		const { data, error } = await customAxios('/api/auth/signin', {
+			method: 'POST',
+			data: {
+				email,
+				password
+			}
+		});
 
-	async function submitHandler(e: SubmitEvent) {
-		e.preventDefault();
-		const file = getImage(files);
-		if (!file) return;
+		if (data) goto('/dashboard');
 
-		try {
-			const imageUrl = await axiosInstant.post('/api/image', {
-				image: await toBase64(file),
-				name: file.name
-			});
-
-			errorImage = '';
-		} catch (err: unknown) {
-			const error = err as AxiosError;
-
-			errorImage = error.response?.data as string | undefined;
-			resetImage();
+		if (error) {
+			if (error.id === 'email') emailError = error.message;
+			if (error.id === 'password') passwordError = error.message;
 		}
 	}
 </script>
 
-<Sidenav {empolyee}>
-	<div class={cn('bg-milk-base h-full overflow-auto w-full')}>
-		<div class={cn('h-full flex justify-center items-center flex-col gap-4')}>
-			<Logo class={cn('scale-75')} />
-			<Button on:click={signOutHandler}>Sign out</Button>
-			<form on:submit={submitHandler} class={cn('flex flex-col justify-center items-center')}>
-				<Image bind:files id="image" error={errorImage} />
-				<div>
-					<Button type="submit" size="small">upload</Button>
-				</div>
-			</form>
-		</div>
-	</div>
-</Sidenav>
+<div class="bg-ivory-base font-exo h-full flex justify-center items-center flex-col gap-4">
+	<Logo class={cn('scale-75')} />
+	<form class="flex justify-center items-center flex-col gap-2">
+		<Email bind:value={email} error={emailError} />
+		<Password bind:value={password} error={passwordError} />
+		<Button on:click={loginHandler} class={cn('mt-8')}>Login</Button>
+	</form>
+</div>

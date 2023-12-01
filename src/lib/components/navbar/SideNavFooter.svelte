@@ -2,6 +2,7 @@
 	import type { Tables } from '$lib/types/schema';
 	import { cn } from '@dookdiks/utils';
 	import Icon from '@iconify/svelte';
+	import caretDownFill from '@iconify/icons-bi/caret-down-fill';
 
 	export let empolyee: Tables<'employees'> | null;
 </script>
@@ -26,7 +27,7 @@
 			</span>
 		</div>
 		<button class={cn('h-fit p-1 ')}>
-			<Icon icon="bi:caret-down-fill" />
+			<Icon icon={caretDownFill} />
 		</button>
 	</div>
 </div>

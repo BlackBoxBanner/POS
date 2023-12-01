@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { cn } from '@dookdiks/utils';
-	import Topnavbtn from './Topnavbtn.svelte';
 	import { page } from '$app/stores';
+	import Topnavbtn from './Topnavbtn.svelte';
 
-	export let dishType: string[];
+	export let list: string[];
 
 	$: type = $page.url.searchParams.get('type');
 </script>
@@ -11,14 +11,15 @@
 <div
 	class={cn(
 		'bg-ivory-400 flex relative overflow-x-scroll w-full gap-4 p-4 scroll-px-4 scroll-smooth snap-proximity snap-x',
-		'no-scrollbar'
+		'no-scrollbar',
+		$$restProps.class
 	)}
 >
-	{#each dishType as dish}
+	{#each list as item}
 		<Topnavbtn
-			to={dish.toLowerCase()}
-			label={dish}
-			active={type?.toLowerCase() == dish.toLowerCase()}
+			to={item.toLowerCase()}
+			label={item}
+			active={type?.toLowerCase() == item.toLowerCase()}
 		/>
 	{/each}
 </div>

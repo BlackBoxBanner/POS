@@ -1,17 +1,9 @@
-export function addParamsToURL(params: Record<string, string>) {
-	const arrParams = Object.entries(params);
-
-	let currentUrl = window.location.href;
-
-	arrParams.forEach((params) => {
-		currentUrl = addOrUpdateUrlParameter(currentUrl, params[0], params[1]);
-	});
-
-	window.location.href = currentUrl;
-}
-
-function addOrUpdateUrlParameter(url: string, key: string, value: string) {
+export function addQueryParameters(url: string, params: { [key: string]: string }): string {
 	const urlObject = new URL(url);
-	urlObject.searchParams.set(key, value);
+
+	for (const [key, value] of Object.entries(params)) {
+		urlObject.searchParams.set(key, value);
+	}
+
 	return urlObject.toString();
 }

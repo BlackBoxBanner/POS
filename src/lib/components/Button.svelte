@@ -27,7 +27,7 @@
 	on:mouseenter
 	on:mouseleave
 	class={cn(
-		'bg-crayola-base text-milk-base rounded-full',
+		'bg-crayola-base text-milk-base rounded-full flex justify-center items-center gap-2',
 		'ease-in-out duration-300',
 		'hover:bg-crayola-200',
 		btnSize,
