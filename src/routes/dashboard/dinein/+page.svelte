@@ -10,8 +10,11 @@
 	import { onMount } from 'svelte';
 	import { addQueryParameters } from '$lib/utils/urlParams';
 	import TableModal from '$lib/components/modal/TableModal.svelte';
+	import { formatNumber, formatTime } from '$lib/utils/format';
+	import TableModalContent from '$lib/components/modal/TableModalContent.svelte';
 
 	export let data: PageData;
+
 	async function onClick() {
 		const res = await fetch('/api/auth/signout', { method: 'POST' });
 		if (res) goto('/');
@@ -21,41 +24,22 @@
 
 	const menuList = ['all', 'Available', 'unavailable'];
 
-	function formatNumber(num: number): string {
-		return num >= 1 && num <= 9 ? `0${num}` : num.toString();
-	}
-
-	let active = false;
-
-	type Result = {
-		created_at: string;
-		id: string;
-		seat: number | null;
-		table_number: number;
-		time: string | null;
-	}[];
+	let active = true;
 
 	function mergeTablesAndCustomers(
 		tables: Tables<'tables'>[],
 		customers: Tables<'customers'>[]
-	): Result {
+	): TableIn[] {
 		return tables.map((table) => {
-			const options: Intl.DateTimeFormatOptions = {
-				hour: '2-digit',
-				minute: '2-digit',
-				hour12: false
-			};
-
 			const matchingCustomer = customers.find((customer) => customer.table_id === table.id);
 
 			return {
 				created_at: table.created_at,
 				id: table.id,
-				seat: matchingCustomer ? matchingCustomer.seat : null,
+				seated: matchingCustomer ? matchingCustomer.seat : null,
+				seat: table.seat,
 				table_number: table.table_number,
-				time: matchingCustomer
-					? new Date(matchingCustomer.created_at).toLocaleTimeString('en-US', options)
-					: null
+				time: matchingCustomer ? formatTime(matchingCustomer.created_at) : null
 			};
 		});
 	}
@@ -73,6 +57,18 @@
 		}
 	});
 
+	let result: TableIn | null;
+
+	function onOpenModal(table: TableIn) {
+		active = true;
+		result = table;
+	}
+
+	function onCloseModal() {
+		active = false;
+		result = null;
+	}
+
 	onMount(() => {
 		const newUrl = !type && addQueryParameters($page.url.href, { type: 'all' });
 		newUrl && goto(newUrl);
@@ -86,7 +82,7 @@
 	)}
 >
 	{#each completeList as table, index (index)}
-		<button on:click={() => (active = true)}>
+		<button on:click={() => onOpenModal(table)}>
 			<CardTable>
 				<div
 					slot="header"
@@ -102,7 +98,7 @@
 					{#if table.time}
 						<div class={cn('grid grid-cols-2 w-full')}>
 							<div class={cn('font-semibold')}>Seat :</div>
-							<div>{@html table.seat}</div>
+							<div>{@html table.seated}</div>
 							<div class={cn('font-semibold')}>Time :</div>
 							<div>{String(table.time)}</div>
 						</div>
@@ -115,6 +111,8 @@
 
 <Button class={cn('absolute right-8 bottom-8')} on:click={onClick}>logout</Button>
 
-<TableModal {active} on:toggle={() => (active = false)}>
-	<!-- <div>a</div> -->
-</TableModal>
+{#if result}
+	<TableModal {active} on:toggle={onCloseModal}>
+		<TableModalContent tables={result} />
+	</TableModal>
+{/if}
