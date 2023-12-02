@@ -5,7 +5,7 @@
 	export let data: LayoutData;
 </script>
 
-<div class="bg-timberwolf-base h-screen overflow-auto">
+<div class="bg-timberwolf-base h-screen w-full overflow-auto">
 	<Sidenav empolyee={data.empolyee}>
 		<slot />
 	</Sidenav>

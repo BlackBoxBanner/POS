@@ -459,7 +459,6 @@ export interface Database {
 					id: string;
 					menu: string;
 					portion: number;
-					price: number;
 					status: boolean;
 					table_id: string;
 				};
@@ -468,7 +467,6 @@ export interface Database {
 					id?: string;
 					menu: string;
 					portion: number;
-					price: number;
 					status?: boolean;
 					table_id: string;
 				};
@@ -477,7 +475,6 @@ export interface Database {
 					id?: string;
 					menu?: string;
 					portion?: number;
-					price?: number;
 					status?: boolean;
 					table_id?: string;
 				};
