@@ -20,7 +20,7 @@
 		/>
 		<div class={cn('absolute h-full top-0 right-0 flex z-50 bg-ivory-base w-[28rem]')}>
 			<button class={cn('absolute top-3 right-3 rounded-full')} on:click={onToggle}>
-				<Icon icon={closeCircleOutlined} width={50} />
+				<Icon icon={closeCircleOutlined} width={45} />
 			</button>
 			<slot />
 		</div>
