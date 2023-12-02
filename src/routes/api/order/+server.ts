@@ -18,7 +18,7 @@ const exampleFunc = async () => {
 export const GET: RequestHandler = async ({ url }) => {
 	const params = url.searchParams;
 	const id = params.get('id') as GetOrdersProps['id'];
-	const table_id = params.get('id') as GetOrdersProps['table_id'];
+	const table_id = params.get('table_id') as GetOrdersProps['table_id'];
 
 	const { data, error } = await awesome.async(() => getOrders({ id, table_id }));
 	if (error) return Response.json(error, { status: 400 });
