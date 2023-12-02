@@ -75,7 +75,7 @@
 			<div class={cn('px-6 border-b border-b-philippine-gray-base text-ivory-base')}>
 				<Logo class={cn('fill-ivory-base w-full ')} />
 			</div>
-			<div class="block h-full overflow-auto">
+			<div class="block h-full overflow-auto no-scrollbar">
 				{#each btnSideBar as btn}
 					<SidenavBtn
 						icon={btn.icon}
@@ -88,7 +88,7 @@
 		</div>
 		<SideNavFooter {empolyee} />
 	</nav>
-	<div class="overflow-scroll w-full">
+	<section class="overflow-auto w-full">
 		<slot />
-	</div>
+	</section>
 </section>
