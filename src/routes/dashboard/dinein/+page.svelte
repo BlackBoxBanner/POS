@@ -9,7 +9,7 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { addQueryParameters } from '$lib/utils/urlParams';
-	import { list } from 'postcss';
+	import TableModal from '$lib/components/modal/TableModal.svelte';
 
 	export let data: PageData;
 	async function onClick() {
@@ -24,6 +24,8 @@
 	function formatNumber(num: number): string {
 		return num >= 1 && num <= 9 ? `0${num}` : num.toString();
 	}
+
+	let active = false;
 
 	type Result = {
 		created_at: string;
@@ -83,30 +85,36 @@
 		' p-4 w-full grid grid-cols-3 gap-4 justify-items-center md:grid-cols-4 lg:grid-cols-7'
 	)}
 >
-	{#each completeList as table}
-		<CardTable>
-			<div
-				slot="header"
-				class={cn(
-					'w-full h-full bg-success text-ivory-base flex flex-col justify-center items-center',
-					table.time && 'bg-error'
-				)}
-			>
-				<div>TABLE NO.</div>
-				<div class={cn('text-8xl font-semibold')}>{formatNumber(table.table_number)}</div>
-			</div>
-			<div slot="body" class={cn('flex items-end h-full w-full')}>
-				{#if table.time}
-					<div class={cn('grid grid-cols-2 w-full')}>
-						<div class={cn('font-semibold')}>Seat :</div>
-						<div>{@html table.seat}</div>
-						<div class={cn('font-semibold')}>Time :</div>
-						<div>{String(table.time)}</div>
-					</div>
-				{/if}
-			</div>
-		</CardTable>
+	{#each completeList as table, index (index)}
+		<button on:click={() => (active = true)}>
+			<CardTable>
+				<div
+					slot="header"
+					class={cn(
+						'w-full h-full bg-success text-ivory-base flex flex-col justify-center items-center',
+						table.time && 'bg-error'
+					)}
+				>
+					<div>TABLE NO.</div>
+					<div class={cn('text-8xl font-semibold')}>{formatNumber(table.table_number)}</div>
+				</div>
+				<div slot="body" class={cn('flex items-end h-full w-full')}>
+					{#if table.time}
+						<div class={cn('grid grid-cols-2 w-full')}>
+							<div class={cn('font-semibold')}>Seat :</div>
+							<div>{@html table.seat}</div>
+							<div class={cn('font-semibold')}>Time :</div>
+							<div>{String(table.time)}</div>
+						</div>
+					{/if}
+				</div>
+			</CardTable>
+		</button>
 	{/each}
 </section>
 
 <Button class={cn('absolute right-8 bottom-8')} on:click={onClick}>logout</Button>
+
+<TableModal {active} on:toggle={() => (active = false)}>
+	<!-- <div>a</div> -->
+</TableModal>
