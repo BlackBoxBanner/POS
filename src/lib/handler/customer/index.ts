@@ -64,8 +64,8 @@ export type GetCustomerProps = {
 	id?: string;
 };
 
-export const getCustomer: Customers<GetCustomerProps, Tables<'orders'>[]> = async ({ id }) => {
-	let query = supabase.from('orders').select('*');
+export const getCustomer: Customers<GetCustomerProps, Tables<'customers'>[]> = async ({ id }) => {
+	let query = supabase.from('customers').select('*');
 
 	if (id) {
 		query = query.eq('id', id);
