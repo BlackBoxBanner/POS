@@ -6,10 +6,13 @@
 
 	export let data: PageData;
 
-	const params = $page.params;
+	const id = $page.url.searchParams.get('id');
+	console.log(id);
 </script>
 
 <div class="flex gap-2">
 	<!-- <EnterBill url="test" /> -->
-	<OutBill customerId={params.id} />
+	{#if id}
+		<OutBill customerId={id} />
+	{/if}
 </div>
