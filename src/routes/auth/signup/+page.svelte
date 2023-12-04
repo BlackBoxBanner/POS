@@ -7,6 +7,7 @@
 	import { cn } from '@dookdiks/utils';
 	import { goto } from '$app/navigation';
 	import Input from '$lib/components/input/Input.svelte';
+	import CheckBox from '$lib/components/input/CheckBox.svelte';
 
 	let email = '';
 	let password = '';
@@ -17,6 +18,8 @@
 	let passwordError = '';
 	let repetePasswordError = '';
 	let nameError = '';
+
+	let force = false;
 
 	function resetError() {
 		emailError = '';
@@ -31,7 +34,8 @@
 				email,
 				password,
 				repetePassword,
-				name
+				name,
+				force
 			}
 		});
 
@@ -53,6 +57,7 @@
 		<Email bind:value={email} error={emailError} />
 		<Password bind:value={password} error={passwordError} />
 		<Password bind:value={repetePassword} error={repetePasswordError} label="Repete Password" />
+		<CheckBox bind:checked={force} label="Force register?" />
 		<Button on:click={signUpHandler} class={cn('mt-8')}>Sign Up</Button>
 	</form>
 </div>

@@ -6,6 +6,7 @@
 	export let emailNotValid = 'Email is not valid';
 	export let label = 'Email';
 	export let inputClass = '';
+	export let id: string = '';
 
 	function checkEmail(str: string) {
 		return str && !str.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
@@ -23,7 +24,7 @@
 
 <div class={cn('flex flex-col min-w-[23rem] relative')} {...$$restProps}>
 	<label
-		for="email-input"
+		for={id || 'email-input'}
 		class={cn(
 			'text-base font-semibold w-full',
 			(isEmail || isError) && !isError && 'border-error text-error'
@@ -31,6 +32,7 @@
 	>
 	<input
 		bind:value
+		id={id || 'email-input'}
 		type="email"
 		class={cn(
 			'border-b border-eerie-black-base text-eerie-black-base font-light active:no-underline w-full focus:outline-none bg-transparent',

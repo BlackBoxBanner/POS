@@ -5,6 +5,7 @@
 	export let error = '';
 	export let label = 'Pattern';
 	export let inputClass = '';
+	export let id: string = '';
 
 	type Pattern = {
 		pattern: RegExp;
@@ -24,7 +25,7 @@
 
 <div class={cn('flex flex-col min-w-[23rem] relative')} {...$$restProps}>
 	<label
-		for="email-input"
+		for={id || 'email-input'}
 		class={cn(
 			'text-base font-semibold w-full border-eerie-black-base text-eerie-black-base',
 			error && 'border-error text-error'
@@ -33,6 +34,7 @@
 	<div class={cn('relative')}>
 		<input
 			bind:value
+			id={id || 'email-input'}
 			type="text"
 			class={cn(
 				'border-b font-light active:no-underline border-eerie-black-base text-eerie-black-base w-full focus:outline-none bg-transparent',

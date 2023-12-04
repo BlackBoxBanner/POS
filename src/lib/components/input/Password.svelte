@@ -11,6 +11,7 @@
 	export let check = false;
 	export let inputClass = '';
 	export let review = true;
+	export let id: string = '';
 	let type: 'password' | 'text' = 'password';
 
 	$: isStrongPassword = checkPassword(value);
@@ -33,7 +34,7 @@
 
 <div class={cn('flex flex-col min-w-[23rem] relative')} {...$$restProps}>
 	<label
-		for="email-input"
+		for={id || 'password-input'}
 		class={cn(
 			'text-base font-semibold w-full border-eerie-black-base text-eerie-black-base',
 			(isStrongPassword || isError) && check && !isError && 'border-error text-error'
@@ -42,6 +43,7 @@
 	<div class={cn('relative')}>
 		<input
 			bind:value
+			id={id || 'password-input'}
 			{...{ type }}
 			class={cn(
 				'border-b font-light border-eerie-black-base text-eerie-black-base active:no-underline w-full focus:outline-none bg-transparent',
