@@ -11,6 +11,7 @@
 	export let check = false;
 	export let inputClass = '';
 	export let review = true;
+	export let id: string = '';
 	let type: 'password' | 'text' = 'password';
 
 	$: isStrongPassword = checkPassword(value);
@@ -32,19 +33,27 @@
 </script>
 
 <div class={cn('flex flex-col min-w-[23rem] relative')} {...$$restProps}>
-	<label for="email-input" class={cn('text-base font-semibold w-full')}>{label}</label>
+	<label
+		for={id || 'password-input'}
+		class={cn(
+			'text-base font-semibold w-full border-eerie-black-base text-eerie-black-base',
+			(isStrongPassword || isError) && check && !isError && 'border-error text-error'
+		)}>{label}</label
+	>
 	<div class={cn('relative')}>
 		<input
 			bind:value
+			id={id || 'password-input'}
 			{...{ type }}
 			class={cn(
-				'border-b font-light active:no-underline w-full focus:outline-none bg-transparent',
+				'border-b font-light border-eerie-black-base text-eerie-black-base active:no-underline w-full focus:outline-none bg-transparent',
+				(isStrongPassword || isError) && check && !isError && 'border-error text-error',
 				inputClass
 			)}
 			on:input={handleInput}
 		/>
 	</div>
-	<p class={cn('font-light text-sm text-crayola-base h-4')}>
+	<p class={cn('font-light  text-sm text-error h-4')}>
 		{#if (isStrongPassword || isError) && check && !isError}
 			{passwordRequirements}
 		{:else}

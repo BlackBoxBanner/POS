@@ -1,6 +1,6 @@
 {
 	"name": "pos",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
@@ -18,7 +18,12 @@
 		"serve-storybook": "npx serve storybook-static"
 	},
 	"devDependencies": {
+		"@iconify/icons-ant-design": "^1.2.7",
+		"@iconify/icons-bi": "^1.2.19",
+		"@iconify/icons-bx": "^1.2.6",
+		"@iconify/icons-fa": "^1.2.3",
 		"@iconify/icons-ion": "^1.2.10",
+		"@iconify/icons-vaadin": "^1.2.4",
 		"@iconify/svelte": "^3.1.4",
 		"@playwright/test": "^1.28.1",
 		"@storybook/addon-essentials": "^7.5.3",

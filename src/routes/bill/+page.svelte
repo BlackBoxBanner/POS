@@ -7,6 +7,6 @@
 </script>
 
 <div class="flex gap-2">
-	<EnterBill url="test" />
-	<OutBill />
+	<!-- <EnterBill url="test" /> -->
+	<OutBill customerId="b419f9ba-921c-432a-a89c-875fa8921dc5" />
 </div>

@@ -1,18 +1,47 @@
 <script lang="ts">
-	import { axiosInstant } from '$lib/axios';
-	import Button from '$lib/components/Button.svelte';
 	import Logo from '$lib/components/logo.svelte';
-	import type { PageData } from './$types';
+	import Email from '$lib/components/input/Email.svelte';
+	import Password from '$lib/components/input/Password.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import { customAxios } from '$lib/axios';
 	import { cn } from '@dookdiks/utils';
+	import { goto } from '$app/navigation';
 
-	export let data: PageData;
+	let email = '';
+	let password = '';
 
-	function signOutHandler() {
-		axiosInstant('/api/auth/signout', { method: 'POST' });
+	let emailError = '';
+	let passwordError = '';
+
+	function resetError() {
+		emailError = '';
+		passwordError = '';
+	}
+
+	async function loginHandler() {
+		resetError();
+		const { data, error } = await customAxios('/api/auth/signin', {
+			method: 'POST',
+			data: {
+				email,
+				password
+			}
+		});
+
+		if (data) goto('/dashboard');
+
+		if (error) {
+			if (error.id === 'email') emailError = error.message;
+			if (error.id === 'password') passwordError = error.message;
+		}
 	}
 </script>
 
 <div class="bg-ivory-base font-exo h-full flex justify-center items-center flex-col gap-4">
 	<Logo class={cn('scale-75')} />
-	<Button on:click={signOutHandler}>Sign out</Button>
+	<form class="flex justify-center items-center flex-col gap-2">
+		<Email bind:value={email} error={emailError} />
+		<Password bind:value={password} error={passwordError} />
+		<Button on:click={loginHandler} class={cn('mt-8')}>Login</Button>
+	</form>
 </div>

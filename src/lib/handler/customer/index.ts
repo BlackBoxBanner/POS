@@ -26,13 +26,14 @@ export const getId: GetId = async ({ table_id }) => {
 
 export type CreateCustomerProps = Pick<
 	Inserts<'customers'>,
-	'table_id' | 'employee_id' | 'branch_id'
+	'table_id' | 'employee_id' | 'branch_id' | 'seat'
 >;
 
 export const createCustomer: Customers<CreateCustomerProps> = async ({
 	table_id,
 	employee_id,
-	branch_id
+	branch_id,
+	seat
 }) => {
 	//customDebug('Checking Customer', debug);
 	if (!table_id || table_id === undefined)
@@ -41,13 +42,16 @@ export const createCustomer: Customers<CreateCustomerProps> = async ({
 		throw customError({ id: 'employee_id', message: 'No employee assigned to customer' });
 	if (branch_id || branch_id === undefined)
 		throw customError({ id: 'branch_id', message: 'No branch assigned to customer' });
+	if (seat || seat === undefined)
+		throw customError({ id: 'branch_id', message: 'Seat must be projided.' });
 
 	const { data, error } = await supabase
 		.from('customer')
 		.insert({
 			table_id,
 			employee_id,
-			branch_id
+			branch_id,
+			seat
 		})
 		.select();
 
@@ -60,8 +64,8 @@ export type GetCustomerProps = {
 	id?: string;
 };
 
-export const getCustomer: Customers<GetCustomerProps, Tables<'orders'>[]> = async ({ id }) => {
-	let query = supabase.from('orders').select('*');
+export const getCustomer: Customers<GetCustomerProps, Tables<'customers'>[]> = async ({ id }) => {
+	let query = supabase.from('customers').select('*');
 
 	if (id) {
 		query = query.eq('id', id);
