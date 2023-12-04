@@ -2,11 +2,14 @@
 	import EnterBill from '$lib/components/bill/template/EnterBill.svelte';
 	import OutBill from '$lib/components/bill/template/OutBill.svelte';
 	import type { PageData } from './$types';
+	import { page } from '$app/stores';
 
 	export let data: PageData;
+
+	const params = $page.params;
 </script>
 
 <div class="flex gap-2">
 	<!-- <EnterBill url="test" /> -->
-	<OutBill customerId="b419f9ba-921c-432a-a89c-875fa8921dc5" />
+	<OutBill customerId={params.id} />
 </div>
