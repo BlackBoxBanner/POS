@@ -3,7 +3,11 @@
 </script>
 
 <section
-	class={cn('border border-raisinblack-base rounded-lg overflow-clip h-56 w-40  bg-ivory-base')}
+	class={cn(
+		'border border-raisinblack-base rounded-lg overflow-clip h-56 w-40  bg-ivory-base',
+		$$restProps.class
+	)}
+	{...$$restProps}
 >
 	<div class={cn('h-[58%] rounded-b-lg bg-raisinblack-base w-full relative overflow-clip')}>
 		<slot name="header" />

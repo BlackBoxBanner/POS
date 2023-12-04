@@ -19,7 +19,7 @@
 	$: typeQuery = $page.url.searchParams.get('type');
 
 	$: typeId = data.dishType.reduce((result, next) => {
-		if (next.name == typeQuery) result = next.id;
+		if (next.name.toLowerCase() == typeQuery?.toLowerCase()) result = next.id;
 		return result;
 	}, '' as string);
 
