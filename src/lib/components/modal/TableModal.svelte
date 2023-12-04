@@ -1,28 +1,30 @@
 <script lang="ts">
 	import { cn } from '@dookdiks/utils';
-	import { createEventDispatcher } from 'svelte';
-	import Icon from '@iconify/svelte';
-	import closeCircleOutlined from '@iconify/icons-ant-design/close-circle-outlined';
+	import { formatNumber } from '$lib/utils/format';
+	import AvariableTable from './content/AvariableTable.svelte';
+	import UnAvariableTable from './content/UnAvariableTable.svelte';
 
-	const dispatch = createEventDispatcher();
+	export let tables: TableIn;
 
-	function onToggle() {
-		dispatch('toggle');
-	}
-	export let active: boolean;
+	let isAvariable = !tables.time;
 </script>
 
-{#if active}
-	<section class="absolute top-0 left-0 h-full w-full">
-		<button
-			on:click={onToggle}
-			class="bg-eerie-black-base opacity-80 absolute top-0 left-0 h-full w-full z-40"
-		/>
-		<div class={cn('absolute h-full top-0 right-0 flex z-50 bg-ivory-base w-[28rem]')}>
-			<button class={cn('absolute top-3 right-3 rounded-full')} on:click={onToggle}>
-				<Icon icon={closeCircleOutlined} width={45} />
-			</button>
-			<slot />
+<div class={cn('flex flex-col w-full p-4')}>
+	<div
+		class={cn(
+			'w-full h-fit text-success flex flex-col justify-center items-center pt-10 pb-4',
+			'border-b border-b-timberwolf-base',
+			!isAvariable && 'text-error'
+		)}
+	>
+		<div class={cn('text-xl')}>TABLE NO.</div>
+		<div class={cn('text-[9.5rem] leading-[9.25rem] font-semibold')}>
+			{formatNumber(tables.table_number)}
 		</div>
-	</section>
-{/if}
+	</div>
+	{#if isAvariable}
+		<AvariableTable {tables} />
+	{:else}
+		<UnAvariableTable {tables} />
+	{/if}
+</div>

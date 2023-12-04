@@ -9,9 +9,9 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { addQueryParameters } from '$lib/utils/urlParams';
-	import TableModal from '$lib/components/modal/TableModal.svelte';
+	import Modal from '$lib/components/modal/Modal.svelte';
 	import { formatNumber, formatTime } from '$lib/utils/format';
-	import TableModalContent from '$lib/components/modal/TableModalContent.svelte';
+	import TableModal from '$lib/components/modal/TableModal.svelte';
 
 	export let data: PageData;
 
@@ -112,7 +112,7 @@
 <Button class={cn('absolute right-8 bottom-8')} on:click={onClick}>logout</Button>
 
 {#if result}
-	<TableModal {active} on:toggle={onCloseModal}>
-		<TableModalContent tables={result} />
-	</TableModal>
+	<Modal {active} on:toggle={onCloseModal}>
+		<TableModal tables={result} />
+	</Modal>
 {/if}
