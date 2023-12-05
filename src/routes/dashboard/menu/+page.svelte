@@ -8,6 +8,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import Icon from '@iconify/svelte';
 	import plusIcon from '@iconify/icons-vaadin/plus';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 
@@ -44,4 +45,6 @@
 		<Card name={menu.name} price={String(menu.price)} image={menu.image} />
 	{/each}
 </section>
-<Button class={cn('absolute right-8 bottom-8')}><Icon icon={plusIcon} />Add menu</Button>
+<Button class={cn('absolute right-8 bottom-8')} on:click={() => goto('/dashboard/menu/add/menu')}>
+	<Icon icon={plusIcon} />Edit menu</Button
+>
