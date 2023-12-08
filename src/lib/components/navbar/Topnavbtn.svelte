@@ -8,6 +8,8 @@
 	export let label: string;
 	export let active = false;
 
+	export let sizeProps: 'sm' | 'md' = 'md';
+
 	async function clickHandler() {
 		const url = addQueryParameters($page.url.href, { type: to });
 		await goto(url);
@@ -19,10 +21,14 @@
 	id={to}
 	{...$$restProps}
 	class={cn(
-		'rounded-md flex justify-center items-center min-w-[11rem] w-44 h-16 border font-semibold ease-in-out duration-200',
-		active
-			? 'bg-blue-sapphire-base text-ivory-400'
-			: 'border-timberwolf-base bg-transparent text-philippine-gray-base',
+		'rounded-md flex justify-center items-center min-w-[11rem] w-44 border font-semibold ease-in-out duration-200',
+		{
+			'bg-blue-sapphire-base border-blue-sapphire-base text-ivory-400': active,
+			'border-timberwolf-base bg-transparent text-philippine-gray-base': !active,
+			'h-12': sizeProps == 'sm',
+			'h-16': sizeProps == 'md',
+			'border-raisinblack-base': sizeProps == 'sm' && !active
+		},
 		'snap-start'
 	)}
 >

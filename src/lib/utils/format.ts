@@ -11,3 +11,7 @@ export function formatTime(date: string = new Date().toISOString()) {
 
 	return new Date(date).toLocaleTimeString('en-US', options);
 }
+
+export const capitalizeFirstLetter = (str: string) => {
+	return str.toLowerCase().replace(/\b\w/g, (match) => match.toUpperCase());
+};
