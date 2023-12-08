@@ -38,6 +38,8 @@ describe('Customer Unit Tests', () => {
 
 		await deleteTable({ id: tableProps.id! });
 		await deleteBranch({ id: branchProps.id! });
+
+        
 	});
 
 	describe('POST Customers', () => {
