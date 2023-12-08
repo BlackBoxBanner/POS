@@ -40,13 +40,13 @@ export const createCustomer: Customers<CreateCustomerProps> = async ({
 		throw customError({ id: 'table_id', message: 'Table ID not provided' });
 	if (!employee_id || employee_id === undefined)
 		throw customError({ id: 'employee_id', message: 'No employee assigned to customer' });
-	if (branch_id || branch_id === undefined)
+	if (!branch_id || branch_id === undefined)
 		throw customError({ id: 'branch_id', message: 'No branch assigned to customer' });
-	if (seat || seat === undefined)
+	if (!seat || seat === undefined)
 		throw customError({ id: 'branch_id', message: 'Seat must be projided.' });
 
 	const { data, error } = await supabase
-		.from('customer')
+		.from('customers')
 		.insert({
 			table_id,
 			employee_id,
@@ -54,7 +54,7 @@ export const createCustomer: Customers<CreateCustomerProps> = async ({
 			seat
 		})
 		.select();
-
+	
 	if (error) throw customError({ id: 'customer_id', message: error.message });
 	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return data[0];
