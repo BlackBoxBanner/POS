@@ -1,4 +1,4 @@
-import Password from '$lib/components/input/Password.svelte';
+import Password from '$lib/components/input/skeleton/Password.svelte';
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 const meta = {

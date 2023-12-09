@@ -1,4 +1,4 @@
-import Input from '$lib/components/input/Input.svelte';
+import Input from '$lib/components/input/skeleton/Input.svelte';
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 const meta = {
