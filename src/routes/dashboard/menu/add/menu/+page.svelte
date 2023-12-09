@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Topnav from '$lib/components/navbar/Topnav.svelte';
-	import { cn } from '@dookdiks/utils';
+	import { awesome, cn } from '@dookdiks/utils';
 	import type { PageData } from './$types';
 	import List from '$lib/components/navbar/add menu/List.svelte';
 	import Button from '$lib/components/Button.svelte';
@@ -8,9 +8,19 @@
 	import plusIcon from '@iconify/icons-vaadin/plus';
 	import type { Tables } from '$lib/types/schema';
 	import { page } from '$app/stores';
-	import { error } from '@sveltejs/kit';
+	import Modal from '$lib/components/modal/Modal.svelte';
 
 	export let data: PageData;
+
+	$: dishType = data.dishType;
+
+	async function onRefresh() {
+		const { data: newDishType, error: newDishTypeError } = await awesome.fetch('/api/type');
+		if (newDishTypeError) return console.error(newDishTypeError);
+		dishType = newDishType as Tables<'dish_types'>[];
+	}
+
+	let modal = false;
 
 	$: typeQuery = $page.url.searchParams.get('type');
 
@@ -33,10 +43,24 @@
 
 	$: menus = getMenus(typeQuery);
 
-	const dishTypeArr = data.dishType.reduce((result, next) => {
+	$: dishTypeArr = dishType.reduce((result, next) => {
 		result.push(next.name);
 		return result;
 	}, [] as string[]);
+
+	function handleAddMenu() {
+		modal = !modal;
+	}
+	async function onDeleteHandler(id: string) {
+		const { data: resDelete, error: resErrorDelete } = await awesome.fetch('/api/menu', {
+			method: 'DELETE',
+			body: {
+				id
+			}
+		});
+		if (resErrorDelete) return console.error(resErrorDelete);
+		onRefresh();
+	}
 </script>
 
 <div class={cn('border-b border-b-timberwolf-base p-4 pb-8 text-3xl font-semibold mb-4')}>MENU</div>
@@ -46,8 +70,20 @@
 <div class={cn('p-4')}>
 	{#each menus as menu}
 		<!-- make list for category -->
-		<List label={menu.name} />
+		<List label={menu.name} on:delete={() => onDeleteHandler(menu.id)} />
 	{/each}
 </div>
 
-<Button class={cn('absolute right-8 bottom-8')}><Icon icon={plusIcon} />Add menu</Button>
+<Modal
+	active={modal}
+	on:toggle={handleAddMenu}
+	position="center"
+	class={cn('w-2/5 p-4 pt-12 h-4/5')}
+	closeSize={30}
+>
+	<!-- <AddCategoryForm on:afterSubmit={handlerAddCategoryModal} /> -->
+</Modal>
+
+<Button class={cn('absolute right-8 bottom-8')} on:click={handleAddMenu}>
+	<Icon icon={plusIcon} />Add menu
+</Button>

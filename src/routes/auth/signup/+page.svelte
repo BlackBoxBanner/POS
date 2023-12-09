@@ -7,7 +7,7 @@
 	import { cn } from '@dookdiks/utils';
 	import { goto } from '$app/navigation';
 	import Input from '$lib/components/input/Input.svelte';
-	import CheckBox from '$lib/components/input/CheckBox.svelte';
+	import CheckBox from '$lib/components/input/skeleton/CheckBox.svelte';
 
 	let email = '';
 	let password = '';

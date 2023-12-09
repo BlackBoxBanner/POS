@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Logo from '$lib/components/logo.svelte';
-	import Email from '$lib/components/input/Email.svelte';
-	import Password from '$lib/components/input/Password.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { customAxios } from '$lib/axios';
 	import { cn } from '@dookdiks/utils';
 	import { goto } from '$app/navigation';
+	import Email from '$lib/components/input/skeleton/Email.svelte';
+	import Password from '$lib/components/input/skeleton/Password.svelte';
 
 	let email = '';
 	let password = '';
