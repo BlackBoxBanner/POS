@@ -10,7 +10,7 @@
 	};
 </script>
 
-<section class={cn('flex relative h-full w-full gap-4')}>
+<section class={cn('flex h-full w-full gap-4')}>
 	<nav
 		class={cn(
 			'flex flex-col justify-between bg-ivory-400 min-w-[14rem] w-64 relative fill-ivory-base overflow-clip'

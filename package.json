@@ -57,7 +57,7 @@
 	"type": "module",
 	"dependencies": {
 		"@dookdiks/error": "^1.0.3",
-		"@dookdiks/utils": "^2.1.0",
+		"@dookdiks/utils": "^2.1.2",
 		"@supabase/supabase-js": "^2.38.1",
 		"axios": "^1.5.1",
 		"clsx": "^2.0.0",
