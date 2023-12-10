@@ -462,7 +462,7 @@ export interface Database {
 					id: string;
 					menu: string;
 					portion: number;
-					status: boolean;
+					status: number | null;
 					table_id: string;
 				};
 				Insert: {
@@ -470,7 +470,7 @@ export interface Database {
 					id?: string;
 					menu: string;
 					portion: number;
-					status?: boolean;
+					status?: number | null;
 					table_id: string;
 				};
 				Update: {
@@ -478,7 +478,7 @@ export interface Database {
 					id?: string;
 					menu?: string;
 					portion?: number;
-					status?: boolean;
+					status?: number | null;
 					table_id?: string;
 				};
 				Relationships: [

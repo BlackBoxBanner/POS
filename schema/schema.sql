@@ -69,11 +69,11 @@ create table if not exists public.menus (
 
 create table if not exists public.orders (
   id uuid not null default gen_random_uuid (),
-  status boolean not null default true,
   table_id uuid not null,
   created_at timestamp with time zone not null default now(),
   menu text not null,
   portion integer not null,
+  status smallint null default '0' :: smallint,
   constraint orders_pkey primary key (id),
   constraint orders_table_id_fkey foreign key (table_id) references tables (id) on update cascade on delete cascade,
   constraint orders_menu_fkey foreign key (menu) references menus (name) on update cascade
