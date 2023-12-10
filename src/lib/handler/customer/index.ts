@@ -54,7 +54,7 @@ export const createCustomer: Customers<CreateCustomerProps> = async ({
 			seat
 		})
 		.select();
-	
+
 	if (error) throw customError({ id: 'customer_id', message: error.message });
 	if (data.length == 0) throw customError({ id: 'id', message: 'No matched ID' });
 	return data[0];

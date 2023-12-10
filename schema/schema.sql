@@ -45,6 +45,7 @@ create table if not exists public.customers (
   take_away boolean not null default false,
   check_out_at timestamp with time zone null,
   seat integer not null,
+  name text null,
   constraint customers_pkey primary key (id),
   constraint customers_branch_id_fkey foreign key (branch_id) references branches (id) on update cascade,
   constraint customers_table_id_fkey foreign key (table_id) references tables (id) on update cascade,
