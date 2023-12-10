@@ -26,14 +26,16 @@ export const getId: GetId = async ({ table_id }) => {
 
 export type CreateCustomerProps = Pick<
 	Inserts<'customers'>,
-	'table_id' | 'employee_id' | 'branch_id' | 'seat'
+	'table_id' | 'employee_id' | 'branch_id' | 'seat' | 'name' | 'take_away'
 >;
 
 export const createCustomer: Customers<CreateCustomerProps> = async ({
 	table_id,
 	employee_id,
 	branch_id,
-	seat
+	seat,
+	name,
+	take_away = false
 }) => {
 	//customDebug('Checking Customer', debug);
 	if (!table_id || table_id === undefined)
@@ -51,7 +53,9 @@ export const createCustomer: Customers<CreateCustomerProps> = async ({
 			table_id,
 			employee_id,
 			branch_id,
-			seat
+			seat,
+			name,
+			take_away
 		})
 		.select();
 
