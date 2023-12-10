@@ -461,6 +461,7 @@ export interface Database {
 					created_at: string;
 					id: string;
 					menu: string;
+					'order number': number;
 					portion: number;
 					status: number | null;
 					table_id: string;
@@ -469,6 +470,7 @@ export interface Database {
 					created_at?: string;
 					id?: string;
 					menu: string;
+					'order number'?: number;
 					portion: number;
 					status?: number | null;
 					table_id: string;
@@ -477,6 +479,7 @@ export interface Database {
 					created_at?: string;
 					id?: string;
 					menu?: string;
+					'order number'?: number;
 					portion?: number;
 					status?: number | null;
 					table_id?: string;
