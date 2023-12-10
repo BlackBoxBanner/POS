@@ -291,6 +291,7 @@ export interface Database {
 					created_at: string;
 					employee_id: string;
 					id: string;
+					name: string | null;
 					seat: number;
 					table_id: string;
 					take_away: boolean;
@@ -301,6 +302,7 @@ export interface Database {
 					created_at?: string;
 					employee_id: string;
 					id?: string;
+					name?: string | null;
 					seat: number;
 					table_id: string;
 					take_away?: boolean;
@@ -311,6 +313,7 @@ export interface Database {
 					created_at?: string;
 					employee_id?: string;
 					id?: string;
+					name?: string | null;
 					seat?: number;
 					table_id?: string;
 					take_away?: boolean;
