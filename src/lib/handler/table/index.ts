@@ -41,13 +41,13 @@ type GetTable = (props: GetTableProps) => Promise<Inserts<'tables'>[]>;
 /**
  * Retrieves a table from the database based on the provided ID.
  * If no ID is provided, retrieves all tables.
- * 
+ *
  * @param {Object} options - The options for retrieving the table.
  * @param {string} options.id - The ID of the table to retrieve.
  * @param {boolean} options.debug - Whether to enable debug mode.
- * 
+ *
  * @returns {Promise<Array<Object>>} The retrieved table(s).
- * 
+ *
  * @throws {CustomError} If there is an error retrieving the table(s) or if no matched ID is found.
  */
 export const getTable: GetTable = async ({ id, debug }) => {

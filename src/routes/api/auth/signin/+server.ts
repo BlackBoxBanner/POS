@@ -5,7 +5,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 /**
  * Handles the POST request for user sign-in.
- * 
+ *
  * @param {Request} request - The request object.
  * @returns {Promise<Response>} - The response object.
  */

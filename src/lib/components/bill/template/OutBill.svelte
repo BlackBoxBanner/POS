@@ -34,7 +34,7 @@
 
 	/**
 	 * Calculates the orders based on the billsData.
-	 * 
+	 *
 	 * @returns {Array} The calculated orders.
 	 */
 	$: orders = billsData?.order.reduce((result, next) => {
@@ -62,7 +62,7 @@
 	 *
 	 * @returns {number} The total amount.
 	 */
-		$: total = orders?.reduce((result, next) => {
+	$: total = orders?.reduce((result, next) => {
 		result += next.price;
 		return result;
 	}, 0);

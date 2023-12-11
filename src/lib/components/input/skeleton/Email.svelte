@@ -10,7 +10,7 @@
 
 	/**
 	 * Checks if the given string is a valid email address.
-	 * 
+	 *
 	 * @param {string} str - The string to be checked.
 	 * @returns {boolean} - Returns true if the string is a valid email address, false otherwise.
 	 */

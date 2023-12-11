@@ -27,7 +27,7 @@ export const GET: RequestHandler = async ({ url }) => {
 
 /**
  * Handles the POST request for creating a table.
- * 
+ *
  * @param request - The request object.
  * @returns The response object with the created table data or an error message.
  */

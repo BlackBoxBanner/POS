@@ -51,7 +51,7 @@ export const createCustomer: Customers<CreateCustomerProps> = async ({
 	table_id,
 	employee_id,
 	branch_id,
-	seat,
+	seat
 }) => {
 	//customDebug('Checking Customer', debug);
 	if (!table_id || table_id === undefined)
@@ -69,7 +69,7 @@ export const createCustomer: Customers<CreateCustomerProps> = async ({
 			table_id,
 			employee_id,
 			branch_id,
-			seat,
+			seat
 		})
 		.select();
 
@@ -115,10 +115,7 @@ export const getCustomer: Customers<GetCustomerProps, Tables<'customers'>[]> = a
 	return data;
 };
 
-export type UpdateCustomerProps = Pick<
-	Updates<'customers'>,
-	'table_id' | 'check_out_at' 
-> & {
+export type UpdateCustomerProps = Pick<Updates<'customers'>, 'table_id' | 'check_out_at'> & {
 	id: string;
 };
 

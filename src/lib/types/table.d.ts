@@ -9,7 +9,7 @@ type TableIn = {
 	time: string | null;
 };
 
-type CustomerOrder = Tables<"orders_takeaway"> & {
-	order_takeaway_list: (Tables<"order_takeaway_list"> & { price: number })[];
+type CustomerOrder = Tables<'orders_takeaway'> & {
+	order_takeaway_list: (Tables<'order_takeaway_list'> & { price: number })[];
 	name: string;
-}
+};

@@ -4,7 +4,7 @@ import { awesome } from '@dookdiks/utils';
 
 /**
  * Handles the POST request for signing out.
- * 
+ *
  * @param {Request} request - The request object.
  * @returns {Promise<Response>} A promise that resolves to the response object.
  */

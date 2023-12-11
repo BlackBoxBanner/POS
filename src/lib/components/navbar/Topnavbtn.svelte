@@ -10,7 +10,6 @@
 
 	export let sizeProps: 'sm' | 'md' = 'md';
 
-	
 	/**
 	 * Handles the click event of the top navigation button.
 	 * Adds query parameters to the current page URL and navigates to the updated URL.

@@ -25,18 +25,18 @@ export function formatTime(date: string = new Date().toISOString()) {
  * @returns {string} The formatted date string.
  */
 export function formatDate(date: string = new Date().toISOString()) {
-	const dateDate = new Date(date)
-	const day = dateDate.getDate()
+	const dateDate = new Date(date);
+	const day = dateDate.getDate();
 	// get month like DEC, JUL, AUG
-	const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(dateDate)
-	const year = dateDate.getFullYear()
+	const month = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(dateDate);
+	const year = dateDate.getFullYear();
 
-	return `${day} ${month} ${year}`.toUpperCase()
+	return `${day} ${month} ${year}`.toUpperCase();
 }
 
 /**
  * Capitalizes the first letter of a string.
- * 
+ *
  * @param {string} str - The input string.
  * @returns {string} The input string with the first letter capitalized.
  */

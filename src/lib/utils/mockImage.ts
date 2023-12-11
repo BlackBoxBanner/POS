@@ -13,7 +13,7 @@ export const mockFile = (type: string, size: number): File => {
 
 /**
  * Creates a mock FileList object based on the provided array of files.
- * 
+ *
  * @param files - An array of File objects.
  * @returns A FileList object containing the files from the input array.
  */

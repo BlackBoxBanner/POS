@@ -4,7 +4,7 @@ import type { SignUp } from '$lib/types/auth';
 
 /**
  * Sign up a user with the provided email, name, password, and repeat password.
- * 
+ *
  * @param {Object} options - The options for signing up a user.
  * @param {string} options.email - The email of the user.
  * @param {string} options.name - The name of the user.

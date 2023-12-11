@@ -47,7 +47,7 @@ export type GetMenuProps = {
 type GetMenu = (props: GetMenuProps) => Promise<{ data: Inserts<'menus'>[]; menus: string[] }>;
 /**
  * Retrieves the menu data from the database.
- * 
+ *
  * @param {Object} options - The options for retrieving the menu.
  * @param {string} options.id - The ID of the menu to retrieve (optional).
  * @param {boolean} options.debug - Flag indicating whether to enable debug mode (optional).

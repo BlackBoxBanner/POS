@@ -32,7 +32,7 @@ export const GET: RequestHandler = async ({ url }) => {
 
 /**
  * Handles the POST request for creating an order.
- * 
+ *
  * @param {Request} request - The request object.
  * @returns {Promise<Response>} A promise that resolves to the response object.
  */

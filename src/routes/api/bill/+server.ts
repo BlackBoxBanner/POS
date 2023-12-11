@@ -22,7 +22,7 @@ export const GET: RequestHandler = async ({ url }) => {
 
 /**
  * Handles the POST request to close a bill.
- * 
+ *
  * @param {Request} request - The request object.
  * @returns {Promise<Response>} - The response object.
  */

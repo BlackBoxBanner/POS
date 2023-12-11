@@ -20,7 +20,6 @@
 	};
 	const dispatch = createEventDispatcher<CustomDispatchEvent>();
 
-		
 	/**
 	 * Handles the form submission by making a POST request to the server.
 	 * If the request is successful, it dispatches the 'afterSubmit' event.

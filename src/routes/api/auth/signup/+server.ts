@@ -5,7 +5,7 @@ import { awesome } from '@dookdiks/utils';
 
 /**
  * Handles the POST request for user signup.
- * 
+ *
  * @param {Request} request - The request object.
  * @returns {Promise<Response>} - The response object.
  */

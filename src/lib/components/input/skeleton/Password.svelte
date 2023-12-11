@@ -22,7 +22,7 @@
 	 * - Contains at least one uppercase letter
 	 * - Contains at least one digit
 	 * - Has a minimum length of 8 characters
-	 * 
+	 *
 	 * @param {string} str - The password to be checked
 	 * @returns {boolean} - Returns true if the password meets the criteria, false otherwise
 	 */

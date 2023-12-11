@@ -4,7 +4,7 @@ import { toFile } from '$lib/utils/image';
 
 /**
  * Handles the POST request for uploading an image.
- * 
+ *
  * @param request - The request object containing the image and name.
  * @returns A JSON response containing the URL of the uploaded image.
  */
