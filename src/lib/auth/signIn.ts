@@ -2,6 +2,16 @@ import { supabase } from '$lib/supabase';
 import type { SignIn } from '$lib/types/auth';
 import { customDebug, customError } from '@dookdiks/error';
 
+/**
+ * Sign in with email and password.
+ *
+ * @param {Object} options - The options for signing in.
+ * @param {string} options.email - The email address of the user.
+ * @param {string} options.password - The password of the user.
+ * @param {boolean} options.debug - Whether to enable debug mode.
+ * @returns {Promise<Object>} - The data returned after signing in.
+ * @throws {Error} - If no email or password is provided.
+ */
 export const signIn: SignIn = async ({ email, password, debug }) => {
 	customDebug('Checking undefine email', debug);
 	if (!email || email === undefined)

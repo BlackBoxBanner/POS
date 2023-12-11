@@ -3,6 +3,11 @@ import type { DeleteUserProps, UpdateUserProps } from '$lib/types/auth';
 import { awesome } from '@dookdiks/utils';
 import type { RequestHandler } from './$types';
 
+/**
+ * Handles the GET request for retrieving user data.
+ * @param {Request} request - The request object.
+ * @returns {Promise<Response>} - The response object.
+ */
 export const GET: RequestHandler = async ({ url }) => {
 	const params = url.searchParams;
 	const id = params.get('id');
@@ -13,6 +18,11 @@ export const GET: RequestHandler = async ({ url }) => {
 	return Response.json(data);
 };
 
+/**
+ * Handles the DELETE request for deleting a user.
+ * @param {Request} request - The request object.
+ * @returns {Promise<Response>} A promise that resolves to the response object.
+ */
 export const DELETE: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as DeleteUserProps;
 	if (!body.id || body.id === undefined) return Response.json('No id provided.', { status: 400 });
@@ -22,6 +32,11 @@ export const DELETE: RequestHandler = async ({ request }) => {
 	return Response.json(data);
 };
 
+/**
+ * Handles the PATCH request for updating a user.
+ * @param {Request} request - The request object.
+ * @returns {Promise<Response>} - The response object.
+ */
 export const PATCH: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as UpdateUserProps;
 	if (!body.name || body.name === undefined)

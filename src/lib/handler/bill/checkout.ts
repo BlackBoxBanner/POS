@@ -8,6 +8,14 @@ type History<T, V = HistoryOrders> = (props: T) => Promise<V>;
 
 export type CreateHistoryProps = Pick<Inserts<'history_order'>, 'customer_id' | 'menus'>;
 
+/**
+ * Creates a history record for a checkout.
+ * @param {CreateHistoryProps} options - The options for creating the history record.
+ * @param {Menu[]} options.menus - The menus associated with the checkout.
+ * @param {string} options.customer_id - The ID of the customer.
+ * @returns {Promise<History>} - The created history record.
+ * @throws {CustomError} - If no menus are provided or if no customer ID is provided.
+ */
 export const createHistory: History<CreateHistoryProps> = async ({ menus, customer_id }) => {
 	if (!menus || menus.length == 0)
 		throw customError({
@@ -37,6 +45,14 @@ export const createHistory: History<CreateHistoryProps> = async ({ menus, custom
 export type GetHistoryOrder = {
 	id?: string;
 };
+/**
+ * Retrieves the history orders from the database.
+ *
+ * @param {GetHistoryOrder} options - The options for fetching history orders.
+ * @param {string} options.id - The ID of the order to fetch (optional).
+ * @returns {Promise<HistoryOrders[]>} The array of history orders.
+ * @throws {CustomError} If there is an error fetching the orders.
+ */
 export const getHistory: History<GetHistoryOrder, HistoryOrders[]> = async ({ id }) => {
 	let query = supabase.from('history_order').select('*');
 
@@ -66,6 +82,12 @@ export type closeBillProps = {
 	id: string;
 };
 
+/**
+ * Closes the bill by updating the check_out_at property of the customer.
+ * @param {closeBillProps} params - The parameters for closing the bill.
+ * @param {string} params.id - The ID of the bill to be closed.
+ * @returns {Promise<void>} - A promise that resolves when the bill is closed.
+ */
 export const closeBill = async ({ id }: closeBillProps) => {
 	const date = new Date();
 	return await updateCustomer({ id, check_out_at: date.toISOString() });
@@ -84,6 +106,13 @@ export type BillReturn = {
 	menus: Tables<'menus'>[];
 };
 
+/**
+ * Retrieves the bill information for a given customer.
+ *
+ * @param {GetBillProps} params - The parameters for retrieving the bill.
+ * @returns {Promise<BillReturn>} - The bill information.
+ * @throws {CustomError} - If there is an error retrieving the customer, menus, tables, branches, or orders.
+ */
 export const getBill: History<GetBillProps, BillReturn> = async ({ customerId }) => {
 	const { data: customers, error: customerError } = await supabase
 		.from('customers')

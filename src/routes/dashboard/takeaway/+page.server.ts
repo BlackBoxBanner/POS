@@ -18,6 +18,16 @@ export const load = (async () => {
 	if (menusError) throw error(400, 'Error fetching customers');
 
 
+	/**
+	 * Maps the order data to customer orders with additional information.
+	 * 
+	 * @param order - The array of orders.
+	 * @param order_takeaway_lists - The array of order takeaway lists.
+	 * @param customer_takeaway - The array of customer takeaway data.
+	 * @param menus - The array of menu data.
+	 * @returns An array of customer orders with updated order takeaway list and customer name.
+	 * @throws {Error} If there is an error fetching customers or menus.
+	 */
 	const customerOrder: CustomerOrder[] = order.map((order) => {
 		const order_takeaway_list = order_takeaway_lists.filter((order_takeaway_list) => {
 			return order_takeaway_list.order_id === order.id;

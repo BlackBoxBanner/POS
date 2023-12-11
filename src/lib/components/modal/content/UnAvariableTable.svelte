@@ -2,6 +2,7 @@
 	import { axiosInstant } from '$lib/axios';
 	import ButtonOutline from '$lib/components/ButtonOutline.svelte';
 	import type { Tables } from '$lib/types/schema';
+	import type { TableIn } from '$lib/types/table';
 	import { cn } from '@dookdiks/utils';
 	import { onMount } from 'svelte';
 
@@ -9,6 +10,12 @@
 
 	let total = 0;
 
+	/**
+	 * Gets the bill from the server.
+	 *
+	 * @param {string} id - The table id.
+	 * @returns {Promise} The bill.
+	 */
 	async function getBill(id: string) {
 		const { data } = await axiosInstant.get<Tables<'orders'>[]>('/api/order', {
 			params: {
@@ -19,6 +26,11 @@
 		return data;
 	}
 
+	/**
+	 * Gets the menu from the server.
+	 *
+	 * @returns {Promise} The menu.
+	 */
 	async function getMenu() {
 		const { data } = await axiosInstant.get<{ data: Tables<'menus'>[] }>('/api/menu');
 

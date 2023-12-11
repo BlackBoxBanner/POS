@@ -6,6 +6,18 @@ export type CreateBranchProps = Inserts<'branches'> & {
 	debug?: boolean;
 };
 type CreateBranch = (props: CreateBranchProps) => Promise<Tables<'branches'>>;
+/**
+ * Creates a new branch with the provided branch name and phone number.
+ * @param {Object} options - The options for creating a branch.
+ * @param {string} options.branch_name - The name of the branch.
+ * @param {string} options.phone_number - The phone number associated with the branch.
+ * @param {boolean} [options.debug] - Whether to enable debug mode.
+ * @param {any} [options.rest] - Additional properties to be inserted into the branch.
+ * @returns {Promise<Object>} - A promise that resolves to the created branch data.
+ * @throws {Error} - If the branch name or phone number is not provided.
+ * @throws {Error} - If there is an error during the branch creation.
+ * @throws {Error} - If no matched ID is found.
+ */
 export const createBranch: CreateBranch = async ({ branch_name, phone_number, debug, ...rest }) => {
 	customDebug('Checking branch_name', debug);
 	if (!branch_name || branch_name === undefined)
@@ -36,6 +48,16 @@ export type GetBranchProps = {
 	debug?: boolean;
 };
 type GetBranch = (props: GetBranchProps) => Promise<Inserts<'branches'>[]>;
+/**
+ * Retrieves a branch from the database based on the provided ID.
+ * If no ID is provided, retrieves all branches.
+ *
+ * @param {Object} options - The options for retrieving the branch.
+ * @param {string} options.id - The ID of the branch to retrieve (optional).
+ * @param {boolean} options.debug - Flag indicating whether to enable debug mode (optional).
+ * @returns {Promise<Object[]>} - A promise that resolves to an array of branch objects.
+ * @throws {CustomError} - If there is an error retrieving the branch.
+ */
 export const getBranch: GetBranch = async ({ id, debug }) => {
 	customDebug('Check ID', debug);
 	const func = id
@@ -52,6 +74,16 @@ export type DeleteBranchProps = {
 	debug?: boolean;
 };
 type DeleteBranch = (props: DeleteBranchProps) => Promise<Tables<'branches'>>;
+/**
+ * Deletes a branch by ID.
+ * @param {Object} options - The options object.
+ * @param {string} options.id - The ID of the branch to delete.
+ * @param {boolean} [options.debug] - Whether to enable debug mode.
+ * @returns {Promise<Object>} The deleted branch object.
+ * @throws {Error} If the ID is not provided.
+ * @throws {Error} If there is an error during deletion.
+ * @throws {Error} If no branch with the provided ID is found.
+ */
 export const deleteBranch: DeleteBranch = async ({ id, debug }) => {
 	customDebug('Check ID', debug);
 	if (!id || id === undefined) throw customError({ id: 'id', message: 'ID not provided' });
@@ -70,6 +102,16 @@ export type UpdateBranchProps = Updates<'branches'> & {
 	debug?: boolean;
 };
 type UpdateBranch = (props: UpdateBranchProps) => Promise<Tables<'branches'>>;
+/**
+ * Updates a branch in the database.
+ *
+ * @param {Object} options - The options for updating the branch.
+ * @param {string} options.id - The ID of the branch to update.
+ * @param {boolean} options.debug - Flag indicating whether to enable debug mode.
+ * @param {Object} props - The properties to update on the branch.
+ * @returns {Promise<Object>} - The updated branch object.
+ * @throws {Error} - If no ID is provided or if there is an error during the update.
+ */
 export const updateBranch: UpdateBranch = async ({ id, debug, ...props }) => {
 	customDebug('Check id', debug);
 	if (!id) throw customError({ id: 'id', message: 'No id provided' });

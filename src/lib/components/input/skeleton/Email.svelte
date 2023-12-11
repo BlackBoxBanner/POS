@@ -8,6 +8,12 @@
 	export let inputClass = '';
 	export let id: string = '';
 
+	/**
+	 * Checks if the given string is a valid email address.
+	 * 
+	 * @param {string} str - The string to be checked.
+	 * @returns {boolean} - Returns true if the string is a valid email address, false otherwise.
+	 */
 	function checkEmail(str: string) {
 		return str && !str.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
 	}
@@ -15,6 +21,10 @@
 	$: isEmail = checkEmail(value);
 	$: isError = !!error;
 
+	/**
+	 * Handles the input event for the email input field.
+	 * If there is an error and the input value is a valid email, clears the error message.
+	 */
 	function handleInput() {
 		if (isError && isEmail) {
 			error = '';

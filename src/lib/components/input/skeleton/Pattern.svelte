@@ -17,6 +17,10 @@
 		message: ''
 	};
 
+	/**
+	 * Handles the input event for the email input field.
+	 * If there is an error and the input value is a valid email, clears the error message.
+	 */
 	function handleInput() {
 		error = '';
 		error = !!value.match(pattern.pattern) ? pattern.message : '';

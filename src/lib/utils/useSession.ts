@@ -1,4 +1,9 @@
 import { supabase } from '$lib/supabase';
+/**
+ * Retrieves the session and employee information.
+ * @returns {Promise<{ session: any, employee: any }>} The session and employee information.
+ * @throws {Error} If there is an error retrieving the session or employee information.
+ */
 export const useSession = async () => {
 	const {
 		data: { session },

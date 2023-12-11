@@ -5,6 +5,11 @@ import { deleteOrder, getOrders } from '$lib/handler/order';
 import { awesome } from '@dookdiks/utils';
 import type { RequestHandler } from './$types';
 
+/**
+ * Handles the GET request for retrieving history orders.
+ * @param {Request} request - The request object.
+ * @returns {Promise<Response>} - The response object.
+ */
 export const GET: RequestHandler = async ({ url }) => {
 	const searchParams = url.searchParams;
 	let params: GetHistoryOrder = {
@@ -16,6 +21,11 @@ export const GET: RequestHandler = async ({ url }) => {
 	return Response.json(data);
 };
 
+/**
+ * Handles the POST request for creating a history entry.
+ * @param {Request} request - The request object.
+ * @returns {Response} The response object.
+ */
 export const POST: RequestHandler = async ({ request }) => {
 	const { table_id, ...rest } = (await request.json()) as {
 		table_id: string;
@@ -39,7 +49,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		result.push({
 			menu: next.menu,
 			portion: next.portion,
-			price: next.price
+			price: 0
 		});
 		return result;
 	}, [] as Menus[]);

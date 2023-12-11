@@ -15,6 +15,11 @@ const exampleFunc = async () => {
 	return 'example function toggle';
 };
 
+/**
+ * Handles the GET request for retrieving orders.
+ * @param {Request} request - The request object.
+ * @returns {Promise<Response>} - The response object.
+ */
 export const GET: RequestHandler = async ({ url }) => {
 	const params = url.searchParams;
 	const id = params.get('id') as GetOrdersProps['id'];
@@ -25,6 +30,12 @@ export const GET: RequestHandler = async ({ url }) => {
 	return Response.json(data);
 };
 
+/**
+ * Handles the POST request for creating an order.
+ * 
+ * @param {Request} request - The request object.
+ * @returns {Promise<Response>} A promise that resolves to the response object.
+ */
 export const POST: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as Omit<CreateOrderProps, 'price'>;
 
@@ -33,6 +44,11 @@ export const POST: RequestHandler = async ({ request }) => {
 	return Response.json(data);
 };
 
+/**
+ * Handles the PATCH request for updating an order.
+ * @param {Request} request - The request object.
+ * @returns {Promise<Response>} - The response object.
+ */
 export const PATCH: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as UpdateOrderProps;
 
@@ -41,6 +57,11 @@ export const PATCH: RequestHandler = async ({ request }) => {
 	return Response.json(data);
 };
 
+/**
+ * Handles the DELETE request for the order API.
+ * @param {Request} request - The request object.
+ * @returns {Response} The response object.
+ */
 export const DELETE: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as DeleteOrderProps;
 	const { data, error } = await awesome.async(() => deleteOrder(body));

@@ -32,6 +32,11 @@
 
 	type Orders = Pick<Tables<'orders'>, 'menu' | 'portion'> & { price: number };
 
+	/**
+	 * Calculates the orders based on the billsData.
+	 * 
+	 * @returns {Array} The calculated orders.
+	 */
 	$: orders = billsData?.order.reduce((result, next) => {
 		const menus = billsData?.menus.filter((value) => value.name == next.menu);
 		if (!menus || !menus.length) return result;
@@ -52,7 +57,12 @@
 		return result;
 	}, [] as Orders[]);
 
-	$: total = orders?.reduce((result, next) => {
+	/**
+	 * Calculates the total amount for the orders.
+	 *
+	 * @returns {number} The total amount.
+	 */
+		$: total = orders?.reduce((result, next) => {
 		result += next.price;
 		return result;
 	}, 0);

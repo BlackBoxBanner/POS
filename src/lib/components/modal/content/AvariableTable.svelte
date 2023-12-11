@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ButtonOutline from '$lib/components/ButtonOutline.svelte';
+	import type { TableIn } from '$lib/types/table';
 	import { formatTime } from '$lib/utils/format';
 	import { cn } from '@dookdiks/utils';
 	import minusCircleOutlined from '@iconify/icons-ant-design/minus-circle-outlined';
@@ -10,10 +11,16 @@
 
 	let customerNumber = 0;
 
+	/**
+	 * Increases the customer number by 1.
+	 */
 	function increaseCustomer() {
 		customerNumber = customerNumber < tables.seat ? customerNumber + 1 : customerNumber;
 	}
 
+	/**
+	 * Decreases the customer number by 1.
+	 */
 	function decreaseCustomer() {
 		customerNumber = customerNumber > 1 ? customerNumber - 1 : customerNumber;
 	}

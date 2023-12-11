@@ -11,6 +11,11 @@ import {
 import type { RequestHandler } from './$types';
 import { awesome } from '@dookdiks/utils';
 
+/**
+ * Handles the GET request for retrieving a menu item.
+ * @param {Request} request - The request object.
+ * @returns {Promise<Response>} - The response object.
+ */
 export const GET: RequestHandler = async ({ url }) => {
 	const params = url.searchParams;
 	const id = params.get('id') as GetMenuProps['id'];
@@ -20,6 +25,12 @@ export const GET: RequestHandler = async ({ url }) => {
 	return Response.json(data);
 };
 
+/**
+ * Handles the POST request for creating a menu.
+ * 
+ * @param {Request} request - The request object.
+ * @returns {Promise<Response>} A promise that resolves to the response object.
+ */
 export const POST: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as CreateMenuProps;
 
@@ -28,6 +39,11 @@ export const POST: RequestHandler = async ({ request }) => {
 	return Response.json(data);
 };
 
+/**
+ * Handles the PATCH request for updating a menu.
+ * @param {Request} request - The request object.
+ * @returns {Promise<Response>} - The response object.
+ */
 export const PATCH: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as UpdateMenuProps;
 
@@ -36,6 +52,11 @@ export const PATCH: RequestHandler = async ({ request }) => {
 	return Response.json(data);
 };
 
+/**
+ * Handles the DELETE request for the menu API.
+ * @param {Request} request - The request object.
+ * @returns {Response} The response object.
+ */
 export const DELETE: RequestHandler = async ({ request }) => {
 	const body = (await request.json()) as DeleteMenuProps;
 

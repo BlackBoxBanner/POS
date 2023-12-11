@@ -3,6 +3,7 @@
 	import { formatNumber } from '$lib/utils/format';
 	import AvariableTable from './content/AvariableTable.svelte';
 	import UnAvariableTable from './content/UnAvariableTable.svelte';
+	import type { TableIn } from '$lib/types/table';
 
 	export let tables: TableIn;
 

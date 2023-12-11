@@ -7,6 +7,12 @@ type Orders<T, V = Tables<'orders'>> = (props: T) => Promise<V>;
 
 export type CreateOrderProps = Pick<Inserts<'orders'>, 'table_id' | 'menu' | 'portion'>;
 
+/**
+ * Creates an order with the given properties.
+ * @param {CreateOrderProps} props - The properties for creating the order.
+ * @returns {Promise<Order>} - The created order.
+ * @throws {CustomError} - If there is an error creating the order.
+ */
 export const createOrder: Orders<CreateOrderProps> = async (props) => {
 	const { menus, data: menuList } = await getMenu({});
 	if (!props.menu)
@@ -52,6 +58,12 @@ export type GetOrdersProps = {
 	id?: string;
 	table_id?: string;
 };
+/**
+ * Retrieves orders based on the provided criteria.
+ * @param {GetOrdersProps} props - The criteria to filter the orders.
+ * @returns {Promise<Tables<'orders'>[]>} - A promise that resolves to an array of orders.
+ * @throws {CustomError} - If there is an error fetching the orders.
+ */
 export const getOrders: Orders<GetOrdersProps, Tables<'orders'>[]> = async ({ id, table_id }) => {
 	let query = supabase.from('orders').select('*');
 
@@ -89,6 +101,14 @@ export type DeleteOrderProps = {
 	id?: string;
 	table_id?: string;
 };
+/**
+ * Deletes an order from the database.
+ * @param {DeleteOrderProps} options - The options for deleting the order.
+ * @param {string} options.id - The ID of the order to delete.
+ * @param {string} options.table_id - The ID of the table associated with the order.
+ * @returns {Promise<string>} A promise that resolves to a success message when the order is deleted successfully.
+ * @throws {CustomError} Throws a custom error if there is an error deleting the order.
+ */
 export const deleteOrder: Orders<DeleteOrderProps, string> = async ({ id, table_id }) => {
 	let query = supabase.from('orders').delete();
 
@@ -111,6 +131,13 @@ export const deleteOrder: Orders<DeleteOrderProps, string> = async ({ id, table_
 
 export type UpdateOrderProps = Pick<Updates<'orders'>, 'menu' | 'status' | 'id'>;
 
+/**
+ * Updates an order in the database.
+ *
+ * @param {UpdateOrderProps} props - The properties of the order to be updated.
+ * @returns {Promise<Order>} - The updated order.
+ * @throws {CustomError} - If the ID is missing or if there is an error during the update.
+ */
 export const updateOrder: Orders<UpdateOrderProps> = async (props) => {
 	if (!props.id)
 		throw customError({

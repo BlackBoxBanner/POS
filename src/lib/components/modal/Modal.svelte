@@ -8,6 +8,9 @@
 	export let position: 'left' | 'center' = 'left';
 	export let closeSize = 45;
 
+	/**
+	 * Toggles the modal.
+	 */
 	function onToggle() {
 		dispatch('toggle');
 	}

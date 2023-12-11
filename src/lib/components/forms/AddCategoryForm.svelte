@@ -10,11 +10,22 @@
 	let addCategoryValue: string = '';
 	let addCategoryValueError: string = '';
 
+	/**
+	 * CustomDispatchEvent type definition.
+	 * @typedef {Object} CustomDispatchEvent
+	 * @property {undefined} afterSubmit - Event triggered after form submission.
+	 */
 	type CustomDispatchEvent = {
 		afterSubmit: undefined;
 	};
 	const dispatch = createEventDispatcher<CustomDispatchEvent>();
 
+		
+	/**
+	 * Handles the form submission by making a POST request to the server.
+	 * If the request is successful, it dispatches the 'afterSubmit' event.
+	 * If there is an error, it sets the 'addCategoryValueError' variable with the error message.
+	 */
 	async function handleSubmit() {
 		try {
 			await axiosInstant<CreateTypeProps>({

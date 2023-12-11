@@ -2,6 +2,19 @@ import { supabase, supabaseAdmin } from '$lib/supabase';
 import { customDebug, customError } from '@dookdiks/error';
 import type { SignUp } from '$lib/types/auth';
 
+/**
+ * Sign up a user with the provided email, name, password, and repeat password.
+ * 
+ * @param {Object} options - The options for signing up a user.
+ * @param {string} options.email - The email of the user.
+ * @param {string} options.name - The name of the user.
+ * @param {string} options.password - The password of the user.
+ * @param {string} options.repetePassword - The repeated password of the user.
+ * @param {boolean} [options.debug=false] - Whether to enable debug mode.
+ * @param {boolean} [options.force=false] - Whether to force sign up as an admin user.
+ * @returns {Promise<Object>} The user data stored in the database.
+ * @throws {Error} If any required parameter is missing or if the passwords do not match.
+ */
 export const signUp: SignUp = async ({
 	email,
 	name,
