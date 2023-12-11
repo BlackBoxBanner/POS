@@ -1,4 +1,4 @@
-import Email from '$lib/components/input/Email.svelte';
+import Email from '$lib/components/input/skeleton/Email.svelte';
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 const meta = {

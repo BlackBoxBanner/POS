@@ -1,4 +1,4 @@
-import Number from '$lib/components/input/Number.svelte';
+import Number from '$lib/components/input/skeleton/Number.svelte';
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 const meta = {

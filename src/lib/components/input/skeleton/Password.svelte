@@ -61,7 +61,12 @@
 		{/if}
 	</p>
 	{#if review}
-		<button class={cn('absolute right-1 h-full flex items-center')} on:click={onClickHandler}>
+		<button
+			type="button"
+			class={cn('absolute right-1 h-full flex items-center')}
+			on:click={onClickHandler}
+			tabindex="-1"
+		>
 			<Icon icon={type == 'password' ? eyeOutline : eyeOffOutline} class={cn('scale-125')} />
 		</button>
 	{/if}

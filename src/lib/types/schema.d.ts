@@ -284,6 +284,43 @@ export interface Database {
 				};
 				Relationships: [];
 			};
+			customer_takeaway: {
+				Row: {
+					branchI_id: string;
+					created_at: string;
+					empoplyee_id: string;
+					id: number;
+					name: string;
+				};
+				Insert: {
+					branchI_id: string;
+					created_at?: string;
+					empoplyee_id: string;
+					id?: number;
+					name: string;
+				};
+				Update: {
+					branchI_id?: string;
+					created_at?: string;
+					empoplyee_id?: string;
+					id?: number;
+					name?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: 'customer_takeaway_branchI_id_fkey';
+						columns: ['branchI_id'];
+						referencedRelation: 'branches';
+						referencedColumns: ['id'];
+					},
+					{
+						foreignKeyName: 'customer_takeaway_empoplyee_id_fkey';
+						columns: ['empoplyee_id'];
+						referencedRelation: 'employees';
+						referencedColumns: ['id'];
+					}
+				];
+			};
 			customers: {
 				Row: {
 					branch_id: string;
@@ -293,7 +330,6 @@ export interface Database {
 					id: string;
 					seat: number;
 					table_id: string;
-					take_away: boolean;
 				};
 				Insert: {
 					branch_id: string;
@@ -303,7 +339,6 @@ export interface Database {
 					id?: string;
 					seat: number;
 					table_id: string;
-					take_away?: boolean;
 				};
 				Update: {
 					branch_id?: string;
@@ -313,7 +348,6 @@ export interface Database {
 					id?: string;
 					seat?: number;
 					table_id?: string;
-					take_away?: boolean;
 				};
 				Relationships: [
 					{
@@ -453,29 +487,69 @@ export interface Database {
 					}
 				];
 			};
+			order_takeaway_list: {
+				Row: {
+					created_at: string;
+					id: string;
+					menu: string;
+					order_id: string;
+					portios: number;
+				};
+				Insert: {
+					created_at?: string;
+					id?: string;
+					menu: string;
+					order_id: string;
+					portios: number;
+				};
+				Update: {
+					created_at?: string;
+					id?: string;
+					menu?: string;
+					order_id?: string;
+					portios?: number;
+				};
+				Relationships: [
+					{
+						foreignKeyName: 'order_takeaway_list_menu_fkey';
+						columns: ['menu'];
+						referencedRelation: 'menus';
+						referencedColumns: ['name'];
+					},
+					{
+						foreignKeyName: 'order_takeaway_list_order_id_fkey';
+						columns: ['order_id'];
+						referencedRelation: 'orders_takeaway';
+						referencedColumns: ['id'];
+					}
+				];
+			};
 			orders: {
 				Row: {
 					created_at: string;
 					id: string;
 					menu: string;
+					'order number': number;
 					portion: number;
-					status: boolean;
+					status: number | null;
 					table_id: string;
 				};
 				Insert: {
 					created_at?: string;
 					id?: string;
 					menu: string;
+					'order number'?: number;
 					portion: number;
-					status?: boolean;
+					status?: number | null;
 					table_id: string;
 				};
 				Update: {
 					created_at?: string;
 					id?: string;
 					menu?: string;
+					'order number'?: number;
 					portion?: number;
-					status?: boolean;
+					status?: number | null;
 					table_id?: string;
 				};
 				Relationships: [
@@ -489,6 +563,37 @@ export interface Database {
 						foreignKeyName: 'orders_table_id_fkey';
 						columns: ['table_id'];
 						referencedRelation: 'tables';
+						referencedColumns: ['id'];
+					}
+				];
+			};
+			orders_takeaway: {
+				Row: {
+					created_at: string;
+					customer_id: number;
+					id: string;
+					order_number: number;
+					status: number | null;
+				};
+				Insert: {
+					created_at?: string;
+					customer_id: number;
+					id?: string;
+					order_number?: number;
+					status?: number | null;
+				};
+				Update: {
+					created_at?: string;
+					customer_id?: number;
+					id?: string;
+					order_number?: number;
+					status?: number | null;
+				};
+				Relationships: [
+					{
+						foreignKeyName: 'orders_takeaway_customer_id_fkey';
+						columns: ['customer_id'];
+						referencedRelation: 'customer_takeaway';
 						referencedColumns: ['id'];
 					}
 				];

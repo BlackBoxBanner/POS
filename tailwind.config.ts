@@ -98,7 +98,8 @@ const config = {
 				900: '#0f384d'
 			},
 			error: '#DC241F',
-			success: '#38B13D'
+			success: '#38B13D',
+			'yellow-gold': '#FFAF00'
 		},
 		extend: {}
 	}

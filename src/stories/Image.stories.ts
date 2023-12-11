@@ -1,4 +1,4 @@
-import Image from '$lib/components/input/Image.svelte';
+import Image from '$lib/components/input/skeleton/Image.svelte';
 import { mockFileList } from '$lib/utils/mockImage';
 import type { Meta, StoryObj } from '@storybook/svelte';
 
